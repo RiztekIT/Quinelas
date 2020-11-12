@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TemplateComponent } from './pages/template/template.component';
-import { TableListComponent } from './pages/table-list/table-list.component';
 import { MapsComponent } from './pages/maps/maps.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
@@ -13,6 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { SessionGuard } from './guards/session.guard';
+import { ClientsComponent } from './pages/clients/clients.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,9 +23,10 @@ const routes: Routes = [
       path: '',
       component: TemplateComponent
     }, 
-    /*{ path: 'table-list',     component: TableListComponent },
+    /*
     { path: 'dashboard',      component: DashboardComponent },*/
     { path: 'user-profile',   component: UserProfileComponent, canActivate:[ SessionGuard]},
+    { path: 'clients',   component: ClientsComponent, canActivate:[ SessionGuard]},
     /*{ path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

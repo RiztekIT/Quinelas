@@ -19,9 +19,22 @@ export class UserService {
   /**
    * API functions
    */
-  postUser( user:UserModel ){
+
+  getUsers(  ){
+    return this.http.get<UserResponse>(
+      `${this.url}/GET_users.php`,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
+  updateUser( user:UserModel ){
     return this.http.post<UserResponse>(
-      `${this.url}/POST_user.php`, user,
+      `${this.url}/UPDATE_user.php`, user,
       {
         headers : {
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'

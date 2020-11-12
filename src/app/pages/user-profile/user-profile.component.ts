@@ -57,7 +57,7 @@ getUser(){
     });
     Swal.showLoading();
 
-    this.UserService.postUser(this.user).subscribe( resp =>{
+    this.UserService.updateUser(this.user).subscribe( resp =>{
       if(resp.statusID == 200){
         console.log(resp.data[0]);
         Swal.close();Swal.fire({

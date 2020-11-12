@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">{{cardTitle}}</h4>
+        <p class="card-category">Completa la información</p>
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit(clientForm)" #clientForm="ngForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Name" placeholder="Nombre (s)" [(ngModel)]="client.Name" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="LastName" placeholder="Apellido (s)" [(ngModel)]="client.LastName" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Email" placeholder="Email" type="email" [(ngModel)]="client.Email" email required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Phone" placeholder="Teléfono" type="text" [(ngModel)]="client.Phone" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Extra</label>
+                    <mat-form-field class="example-full-width">
+                        <textarea matInput name="AboutMe" placeholder="Información extra" [(ngModel)]="client.Notes"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button mat-raised-button type="submit" class="btn btn-success pull-right ">Guardar</button>
+            <button mat-raised-button type="button" (click)="onClose()" class=" btn btn-danger pull-right ">Salir</button>
+
+            <div class="clearfix "></div>
+        </form>
+    </div>
+</div>
