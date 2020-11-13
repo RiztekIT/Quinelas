@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserModel, UserResponse } from '../models/users.model';
 import { map } from 'rxjs/operators'
+import  Swal  from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,8 @@ export class UserService {
   private url = "https://riztek.com.mx/php/Quinelas";
 
   Token:string;
-  Name:string;
-  constructor( private http: HttpClient) { 
+  constructor( private http: HttpClient,
+    private router: Router) { 
 
   }
 
@@ -74,7 +76,22 @@ export class UserService {
     )
   } 
 
-
+  logout(){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Seguro que desea salir?',
+      showDenyButton: true,
+      denyButtonText: `Cancelar`,
+      denyButtonColor: '#9e9e9e',
+      confirmButtonText: `Sair`,
+      confirmButtonColor: '#f44336',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('/login');
+      } 
+    });
+  }
 
 
 
@@ -84,9 +101,7 @@ export class UserService {
    */
   setUser(Token: string, Name: string){
     this.Token = Token;
-    this.Name = Name;
     localStorage.setItem('Token', Token);
-    localStorage.setItem('Name', Name);
   }
 
   getToken(){
@@ -98,14 +113,6 @@ export class UserService {
     return this.Token;
   }
 
-  getUserName(){
-    if( localStorage.getItem('Name') ){
-      this.Name = localStorage.getItem('Name');
-    }else{
-      this.Name = '';
-    }
-    return this.Name;
-  }
 
   isLoged():boolean{
 

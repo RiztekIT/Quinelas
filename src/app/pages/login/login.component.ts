@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
                private router: Router) { }
 
   ngOnInit() {
+    localStorage.removeItem("Token");
     this.user = new UserModel();
     if( localStorage.getItem('Email') ){
      this.user.Email =  localStorage.getItem('Email');

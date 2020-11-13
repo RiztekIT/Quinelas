@@ -19,7 +19,7 @@ export class ClientsComponent implements AfterViewInit {
 
   client = new ClientModel();
 
-  displayedColumns: string[] = ['ID_Client', 'Name', 'Phone', 'Email', 'Actions'];
+  displayedColumns: string[] = ['ID_Client', 'FullName', 'Phone', 'Email', 'Actions'];
   dataSource:any;
 
   constructor(private clientService: ClientService,
@@ -57,9 +57,18 @@ export class ClientsComponent implements AfterViewInit {
 
 
   openClientDialog(action:string) {
-    let local_ID_Client = this.client.ID_Client;
+
+    let ID_Client = this.client.ID_Client;
+    let ID_User = this.client.ID_User;
+    let Name = this.client.Name;
+    let LastName = this.client.LastName;
+    let Email = this.client.Email;
+    let Phone = this.client.Phone;
+    let Notes = this.client.Notes;
+
+    let client = this.client;
+
     if(action == "create"){
-      local_ID_Client = 0;
       this.client  = new ClientModel();
     }
     let DialogWidth = "100%";
@@ -79,7 +88,16 @@ export class ClientsComponent implements AfterViewInit {
         console.log('--- Refresh ---');
         this.getClients();
       }
-      this.client.ID_Client = local_ID_Client;
+
+      
+      this.client.ID_Client = ID_Client;
+      this.client.ID_User = ID_User;
+      this.client.Name = Name;
+      this.client.LastName = LastName;
+      this.client.Email = Email;
+      this.client.Phone = Phone;
+      this.client.Notes = Notes;
+
       this.client  = new ClientModel();
     });
   }

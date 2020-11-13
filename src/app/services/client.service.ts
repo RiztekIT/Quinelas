@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClientModel, ClientResponse } from '../models/clients.model';
 import { map } from 'rxjs/operators'
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ClientService {
 
   Token:string;
   Name:string;
-  constructor( private http: HttpClient) { 
+  constructor( private http: HttpClient, private userService: UserService) { 
 
   }
 
@@ -21,8 +22,9 @@ export class ClientService {
    */
 
   getClients(  ){
+    let userToken = this.userService.getToken();
     return this.http.get<ClientResponse>(
-      `${this.url}/GET_clients.php`,
+      `${this.url}/GET_clients.php?Token=`+userToken,
       {
         headers : {
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -33,8 +35,16 @@ export class ClientService {
 
 
   postClient(client:ClientModel ){
+
+    //Add the token to the client model to set the parent user.
+    let userToken = this.userService.getToken();
+    const clientWithUserToken = {
+      ... client,
+      userToken
+    }
+
     return this.http.post<ClientResponse>(
-      `${this.url}/POST_client.php`, client,
+      `${this.url}/POST_client.php`, clientWithUserToken,
       {
         headers : {
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'

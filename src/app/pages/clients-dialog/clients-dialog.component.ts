@@ -21,10 +21,14 @@ export class ClientsDialogComponent{
       if(client.ID_Client ){
         this.cardTitle = "Editar cliente";
       }
+      console.log("---Abriendo modal ---");
       console.log(client);
     }
     onClose() {
+      // Set ID_Client = 0 to no refresh the table.
       this.client.ID_Client = 0;
+      console.log("---Cerrando modal ---");
+      console.log(this.client);
       this.dialogRef.close();
     }
     onSubmit(clientForm:NgForm){
