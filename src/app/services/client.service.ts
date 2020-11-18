@@ -9,9 +9,6 @@ import { UserService } from './user.service';
 })
 export class ClientService {
   private url = "https://riztek.com.mx/php/Quinelas";
-
-  Token:string;
-  Name:string;
   constructor( private http: HttpClient, private userService: UserService) { 
 
   }

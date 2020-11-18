@@ -41,6 +41,10 @@ import { UpgradeComponent } from './pages/upgrade/upgrade.component';
 import { CommonModule } from '@angular/common';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { ClientsDialogComponent } from './pages/clients-dialog/clients-dialog.component';
+import { BetsComponent } from './pages/bets/bets.component';
+import { BetsDialogComponent } from './pages/bets-dialog/bets-dialog.component';
+import { SafeURLPipe } from './pipes/safe-url.pipe';
+import { BetsDialogTicketComponent } from './pages/bets-dialog-ticket/bets-dialog-ticket.component';
 
 @NgModule({
 
@@ -102,7 +106,11 @@ import { ClientsDialogComponent } from './pages/clients-dialog/clients-dialog.co
     LoginComponent,
     TemplateComponent,
     ClientsComponent,
-    ClientsDialogComponent
+    ClientsDialogComponent,
+    BetsComponent,
+    BetsDialogComponent,
+    BetsDialogTicketComponent,
+    SafeURLPipe
     
 
   ],

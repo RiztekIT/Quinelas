@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
     //{ path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/user-profile', title: 'Inicio',  icon:'bubble_chart', class: '' },
     { path: '/clients', title: 'Clientes',  icon:'people_alt', class: '' },
-    { path: '/new-bet', title: 'Nueva Apuesta',  icon:'request_quote', class: '' },
+    { path: '/bets', title: 'Apuestas',  icon:'request_quote', class: '' },
     { path: '/users', title: 'Usuarios',  icon:'group', class: '' },
     { path: '/config', title: 'Configuración',  icon:'settings', class: '' },
     //{ path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },

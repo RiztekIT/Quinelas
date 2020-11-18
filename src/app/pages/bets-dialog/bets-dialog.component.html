@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">Nueva apuesta</h4>
+        <p class="card-category">Completa la información</p>
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit(betForm)" #betForm="ngForm">
+
+            <div class="example-container">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Cliente</mat-label>
+                    <mat-select name="ID_Client" [(ngModel)]="bet.ID_Client" required>
+                        <mat-option *ngFor="let client of clients; let i = index" [value]="client.ID_Client">
+                            {{client.FullName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="example-container">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Número (00 - 999)</mat-label>
+                        <input matInput name="Number" placeholder="Número" type="number" [(ngModel)]="bet.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
+                    </mat-form-field>
+                </div>
+                <div class="example-container">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Apuesta {{bet.Bet | currency:'MXN'}}</mat-label>
+                        <input matInput name="Bet" type="number" class="example-right-align" [(ngModel)]="bet.Bet" pattern="^[1-9][0-9]*$" required>
+                        <span matPrefix>$&nbsp;</span>
+                        <span matSuffix>.00</span>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <button mat-raised-button type="submit" class="btn btn-success pull-right ">Guardar</button>
+            <button mat-raised-button type="button" (click)="onClose()" class=" btn btn-danger pull-right ">Salir</button>
+
+            <div class="clearfix "></div>
+        </form>
+    </div>
+</div>
