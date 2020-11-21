@@ -6,6 +6,7 @@ import  Swal  from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { UserModel } from 'app/models/users.model';
 import { UserService } from 'app/services/user.service';
+import { UsersDialogComponent } from '../users-dialog/users-dialog.component';
 
 declare const $: any;
 
@@ -54,59 +55,72 @@ export class UsersComponent implements AfterViewInit {
     });
   }
 
-/*
-  openClientDialog(action:string) {
 
-    let ID_Client = this.client.ID_Client;
-    let ID_User = this.client.ID_User;
-    let Name = this.client.Name;
-    let LastName = this.client.LastName;
-    let Email = this.client.Email;
-    let Phone = this.client.Phone;
-    let Notes = this.client.Notes;
+  openUserDialog(action:string) {
 
-    let client = this.client;
+
+    let ID_User = this.user.ID_User;
+    let Name = this.user.Name;
+    let LastName = this.user.LastName;
+    let Address = this.user.Address;
+    let AddressZipCode = this.user.AddressZipCode;
+    let AddressState = this.user.AddressState;
+    let AddressCity = this.user.AddressCity;
+    let AboutMe = this.user.AboutMe;
+    let Phone = this.user.Phone;
+    let Type = this.user.Type;
+    let Email = this.user.Email;
+    let Password = this.user.Password;
 
     if(action == "create"){
-      this.client  = new ClientModel();
+      this.user  = new UserModel();
     }
     let DialogWidth = "100%";
     if ($(window).width() > 991) { // Computer
        DialogWidth = "50%";
     }
 
-    const dialogRef = this.dialog.open(ClientsDialogComponent, {
+    const dialogRef = this.dialog.open(UsersDialogComponent, {
       width: DialogWidth,
-      data:  this.client
+      data:  this.user
       
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('---Printing Client respose---');
-      console.log(this.client);
-      if(this.client.ID_Client > 0){
+      console.log(this.user);
+      if(this.user.ID_User > 0){
         console.log('--- Refresh ---');
         this.getClients();
       }
 
-      
-      this.client.ID_Client = ID_Client;
-      this.client.ID_User = ID_User;
-      this.client.Name = Name;
-      this.client.LastName = LastName;
-      this.client.Email = Email;
-      this.client.Phone = Phone;
-      this.client.Notes = Notes;
 
-      this.client  = new ClientModel();
+      
+
+      
+      this.user.ID_User = ID_User;
+      this.user.Name = Name;
+      this.user.LastName = LastName;
+      this.user.Address = Address;
+      this.user.AddressZipCode = AddressZipCode;
+      this.user.AddressState = AddressState;
+      this.user.AddressCity = AddressCity;
+      this.user.AboutMe = AboutMe;
+      this.user.Phone = Phone;
+      this.user.Type = Type;
+      this.user.Email = Email;
+      this.user.Password = Password;
+  
+
+      this.user  = new UserModel();
     });
   }
 
-  editClient(element){
-    this.client = element;
-    this.openClientDialog('edit');
+  editUser(element){
+    this.user = element;
+    this.openUserDialog('edit');
   }
 
-
+/*
   deleteClient(ID_Client:number){
     Swal.fire({
       allowOutsideClick: false,

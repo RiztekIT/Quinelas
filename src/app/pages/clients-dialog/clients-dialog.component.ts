@@ -43,8 +43,15 @@ export class ClientsDialogComponent{
       if(this.client.ID_Client ){
         this.clientService.updateClient(this.client).subscribe( resp =>{
           if(resp.statusID == 200){
-            Swal.close();
-            this.dialogRef.close();
+            Swal.fire({
+              allowOutsideClick: false,
+              text: resp.statusDescription,
+              icon: 'success',
+              confirmButtonText: `Ok`
+            }).then((result) => {
+              Swal.close();
+              this.dialogRef.close();
+            })
           }else{
             Swal.fire({
               text: resp.statusDescription,
@@ -56,8 +63,15 @@ export class ClientsDialogComponent{
         this.clientService.postClient(this.client).subscribe( resp =>{
           if(resp.statusID == 200){
             this.client.ID_Client = resp.data[0].ID_Client; // Set the client ID to make an ifelse in the clients compone to know if refresh or no the clients list.
-            Swal.close();
-            this.dialogRef.close();
+            Swal.fire({
+              allowOutsideClick: false,
+              text: resp.statusDescription,
+              icon: 'success',
+              confirmButtonText: `Ok`
+            }).then((result) => {
+              Swal.close();
+              this.dialogRef.close();
+            })
           }else{
             Swal.fire({
                 text: resp.statusDescription,

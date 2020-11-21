@@ -87,8 +87,15 @@ export class BetsDialogComponent implements OnInit {
     Swal.showLoading();
     this.betService.postBet(this.bet).subscribe( resp =>{
       if(resp.statusID == 200){
-        Swal.close();
-        this.dialogRef.close();
+        Swal.fire({
+          allowOutsideClick: false,
+          text: resp.statusDescription,
+          icon: 'success',
+          confirmButtonText: `Ok`
+        }).then((result) => {
+          Swal.close();
+          this.dialogRef.close();
+        })
       }else{
         Swal.fire({
           text: resp.statusDescription,

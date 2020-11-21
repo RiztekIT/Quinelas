@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">{{cardTitle}}</h4>
+        <p class="card-category">Completa la información</p>
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Name" placeholder="Nombre (s)" [(ngModel)]="user.Name" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="LastName" placeholder="Apellido (s)" [(ngModel)]="user.LastName" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Email" placeholder="Email" type="email" [(ngModel)]="user.Email" email required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Phone" placeholder="Teléfono" type="text" [(ngModel)]="user.Phone" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Tipo</mat-label>
+                        <mat-select name="Type" [(ngModel)]="user.Type" required>
+                            <mat-option value="Vendedor">Vendedor</mat-option>
+                            <mat-option value="Administrador">Administrador</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="Address" placeholder="Dirección" type="text" [(ngModel)]="user.Address">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="AddressState" placeholder="Estado" type="text" [(ngModel)]="user.AddressState">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="AddressCity" placeholder="Ciudad" type="text" [(ngModel)]="user.AddressCity">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="AddressZipCode" placeholder="Codigo postal" type="text" [(ngModel)]="user.AddressZipCode">
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Extra</label>
+                    <mat-form-field class="example-full-width">
+                        <textarea matInput name="AboutMe" placeholder="Sobre mi" [(ngModel)]="user.AboutMe"></textarea>
+                    </mat-form-field>
+                    <!-- <div class="form-group">
+
+                      <div class="form-group">
+                          <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                          <textarea class="form-control" rows="5"></textarea>
+                      </div>
+                  </div> -->
+                </div>
+            </div>
+
+            <button mat-raised-button type="submit" class="btn btn-success pull-right ">Guardar</button>
+            <button mat-raised-button type="button" (click)="onClose()" class=" btn btn-danger pull-right ">Salir</button>
+
+            <div class="clearfix "></div>
+        </form>
+    </div>
+</div>
