@@ -57,10 +57,19 @@
                                 <ng-container matColumnDef="Actions" arrowPosition='before'>
                                     <th mat-header-cell *matHeaderCellDef> Opciones </th>
                                     <td mat-cell *matCellDef="let element">
+
+                                        <button mat-icon-button color="warn">
+                                            <a href="https://wa.me/52{{element.clientPhone}}"  target="_blank" color="warn">
+                                                <mat-icon>mobile_screen_share</mat-icon>
+                                            </a> 
+                                        </button>
                                         <button mat-icon-button color="warn" (click)="viewBetTicket(element)">
                                             <mat-icon>confirmation_number</mat-icon>
                                         </button>
                                 </ng-container>
+
+
+
 
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

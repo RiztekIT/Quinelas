@@ -14,6 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SessionGuard } from './guards/session.guard';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { BetsComponent } from './pages/bets/bets.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent, canActivate:[ SessionGuard]},
     { path: 'clients',   component: ClientsComponent, canActivate:[ SessionGuard]},
     { path: 'bets',   component: BetsComponent, canActivate:[ SessionGuard]},
+    { path: 'users',   component: UsersComponent, canActivate:[ SessionGuard]},
     /*{ path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

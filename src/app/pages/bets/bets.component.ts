@@ -45,6 +45,7 @@ export class BetsComponent implements AfterViewInit {
         this.dataSource = new MatTableDataSource<BetModel>(resp.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(resp.data);
       }else{
           Swal.fire({
             text: resp.statusDescription,
