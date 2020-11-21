@@ -30,6 +30,13 @@
                 </div>
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
+                        <input matInput name="Password" placeholder="Password" type="password" [(ngModel)]="user.Password" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
                         <mat-label>Tipo</mat-label>
                         <mat-select name="Type" [(ngModel)]="user.Type" required>
                             <mat-option value="Vendedor">Vendedor</mat-option>
@@ -37,9 +44,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <mat-form-field class="example-full-width">
                         <input matInput name="Address" placeholder="Dirección" type="text" [(ngModel)]="user.Address">
                     </mat-form-field>
