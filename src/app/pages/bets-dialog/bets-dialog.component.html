@@ -10,30 +10,88 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Cliente</mat-label>
                     <mat-select name="ID_Client" [(ngModel)]="bet.ID_Client" required>
+                        <mat-option value="-1">
+                            Nuevo cliente
+                        </mat-option>
                         <mat-option *ngFor="let client of clients; let i = index" [value]="client.ID_Client">
                             {{client.FullName}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <div class="example-container">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Número (00 - 999)</mat-label>
-                        <input matInput name="Number" placeholder="Número" type="number" [(ngModel)]="bet.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
-                    </mat-form-field>
+
+
+                <div class="row" *ngIf="bet.ID_Client == -1">
+                    <div class="col-md-6">
+                        <div class="example-container">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput name="Name" placeholder="Nombre del cliente" type="text" [(ngModel)]="client.Name" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="example-container">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Teléfono</mat-label>
+                                <input matInput name="Name" placeholder="Teléfono del cliente" type="text" [(ngModel)]="client.Phone" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
-                <div class="example-container">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Apuesta {{bet.Bet | currency:'MXN'}}</mat-label>
-                        <input matInput name="Bet" type="number" class="example-right-align" [(ngModel)]="bet.Bet" pattern="^[1-9][0-9]*$" required>
-                        <span matPrefix>$&nbsp;</span>
-                        <span matSuffix>.00</span>
-                    </mat-form-field>
+
+
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="example-container">
+                            <mat-form-field class="example-full-width" *ngFor="let betValue of betValues; let i = index">
+                                <mat-label>Número (00 - 999)</mat-label>
+                                <input matInput name="betValue{{i}}" placeholder="Número" type="number" [(ngModel)]="betValue.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="example-container">
+                            <mat-form-field class="example-full-width" *ngFor="let betValue of betValues; let i = index">
+                                <mat-label>Apuesta {{betValue.Bet | currency:'MXN'}}</mat-label>
+                                <input matInput name="betValue{{i + 999}}" type="number" class="example-right-align" [(ngModel)]="betValue.Bet" pattern="^[1-9][0-9]*$" required>
+                                <span matPrefix>$&nbsp;</span>
+                                <span matSuffix>.00</span>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button mat-flat-button color="warn" class="pull-right" (click)="addvalue()">
+                            <mat-icon>note_add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- 
+                //Apuestas
+                <h2>Result</h2>
+                <div *ngFor="let betValue of betValues;">
+                    {{ betValue.Number }} --- {{ betValue.Bet }}
+                </div> -->
+
+
+
+
+
             </div>
 
 
-            <button mat-raised-button type="submit" class="btn btn-success pull-right ">Guardar</button>
-            <button mat-raised-button type="button" (click)="onClose()" class=" btn btn-danger pull-right ">Salir</button>
+            <div class="clearfix "></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button mat-raised-button type="submit" class="btn btn-success pull-right ">Guardar</button>
+                    <button mat-raised-button type="button" (click)="onClose()" class=" btn btn-danger pull-right ">Salir</button>
+                </div>
+            </div>
 
             <div class="clearfix "></div>
         </form>

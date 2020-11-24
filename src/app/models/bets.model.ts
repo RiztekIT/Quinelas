@@ -12,5 +12,6 @@ export class BetModel{
     ID_Client: number;
     Number: number;
     Bet: number;
+    BetsString: string;
     Created: string;
 }

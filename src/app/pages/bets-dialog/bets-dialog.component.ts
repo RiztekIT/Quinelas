@@ -7,22 +7,48 @@ import { BetsService } from 'app/services/bets.service';
 import { BetModel } from 'app/models/bets.model';
 import { ClientService } from 'app/services/client.service';
 import { ClientModel, ClientResponse } from 'app/models/clients.model';
+
+
+
 @Component({
   selector: 'app-bets-dialog',
   templateUrl: './bets-dialog.component.html',
   styleUrls: ['./bets-dialog.component.css']
 })
 export class BetsDialogComponent implements OnInit {
-  
+
+  client = new ClientModel();
+  betValues = [];
   bet: BetModel;
   clients:any;
   constructor(
     public dialogRef: MatDialogRef<BetsDialogComponent>,
     private betService: BetsService,
     private clientService: ClientService) {
+      this.client  = new ClientModel();
+      this.betValues.push(
+        {
+          Number: "",
+          Bet: ""
+        });
+
+    }
+
+
+    removevalue(i){
+      this.betValues.splice(i,1);
+    }
+  
+    addvalue(){
+      this.betValues.push(
+        {
+          Number: "",
+          Bet: ""
+        });
 
 
     }
+
 
   ngOnInit(): void {
     this.getClients();
@@ -60,10 +86,28 @@ export class BetsDialogComponent implements OnInit {
 
   onSubmit(betForm:NgForm){
     if (betForm.invalid) { return; }
+
+    var table = "";
+    for (var x of this.betValues) {
+      table += `<tr>
+                      <td>${x.Number}</td>
+                      <td>$${x.Bet}</td>
+                  </tr>`;
+    }
+
+    table = `<table border=1 width="100%"> 
+      <tr>
+        <th>Número</th>
+        <th>Apuesta</th>
+      </tr>
+       ${table}
+    </table>`;
+
+
     Swal.fire({
       icon: 'warning',
-      title: 'Asegurese de que el número es el correcto: '+ this.bet.Number +
-              ' y de que la cantidad es la correcta: '+ this.bet.Bet + ' una vez que la apuesta se genera no se puede editar ó eliminar.',
+      title: 'Asegurese de que los números y de que las apuestas son las correctas, una vez que las apuestas se genera no se pueden editar ó eliminar.',
+      html: table,
       showDenyButton: true,
       denyButtonText: `Cancelar`,
       denyButtonColor: '#9e9e9e',
@@ -72,13 +116,24 @@ export class BetsDialogComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.postBet();
+        //if(this.bet.ID_Client == -1){
+        //  console.log("hacer apuestas y creear usuario")
+        //}else{
+          this.postBet();
+        //}
       } 
     });
   }
 
 
   postBet(){
+
+    var localBets = "";
+    for (var x of this.betValues) {
+      localBets += `${x.Number}:${x.Bet},`;
+    }
+    this.bet.BetsString = localBets;
+    console.log(this.bet.BetsString);
     Swal.fire({
     allowOutsideClick: false,
     text: 'Espere por favor...',

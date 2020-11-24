@@ -12,7 +12,8 @@ export class UserService {
   private url = "https://riztek.com.mx/php/Quinelas";
 
   Token:string;
-  constructor( private http: HttpClient,
+  constructor( 
+    private http: HttpClient,
     private router: Router) { 
 
   }
@@ -32,6 +33,28 @@ export class UserService {
       }
     )
   } 
+
+
+
+  postUser(user:UserModel ){
+
+    //Add the token to the user model to set the parent user.
+    let userToken = this.getToken();
+    const userWithUserToken = {
+      ... user,
+      userToken
+    }
+
+    return this.http.post<UserResponse>(
+      `${this.url}/POST_user.php`, userWithUserToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
 
 
   updateUser( user:UserModel ){

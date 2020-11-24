@@ -63,18 +63,25 @@ export class UsersDialogComponent{
           }
         });
       }else{
-        /*this.userService.postU(this.client).subscribe( resp =>{
+        this.userService.postUser(this.user).subscribe( resp =>{
           if(resp.statusID == 200){
-            this.client.ID_Client = resp.data[0].ID_Client; // Set the client ID to make an ifelse in the clients compone to know if refresh or no the clients list.
-            Swal.close();
-            this.dialogRef.close();
+            this.user.ID_User = resp.data[0].ID_User; // Set the user ID to make an ifelse in the users compone to know if refresh or no the users list.
+            Swal.fire({
+              allowOutsideClick: false,
+              text: resp.statusDescription,
+              icon: 'success',
+              confirmButtonText: `Ok`
+            }).then((result) => {
+              Swal.close();
+              this.dialogRef.close();
+            })
           }else{
             Swal.fire({
                 text: resp.statusDescription,
                 icon: 'error'
             });
           }
-        });*/
+        });
       }
     
     }
