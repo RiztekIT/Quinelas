@@ -14,7 +14,7 @@
                             Nuevo cliente
                         </mat-option>
                         <mat-option *ngFor="let client of clients; let i = index" [value]="client.ID_Client">
-                            {{client.FullName}}
+                            {{client.FullName}} / {{client.Phone}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -33,7 +33,7 @@
                         <div class="example-container">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Teléfono</mat-label>
-                                <input matInput name="Name" placeholder="Teléfono del cliente" type="text" [(ngModel)]="client.Phone" required>
+                                <input matInput name="Phone" placeholder="Teléfono del cliente" type="number" [(ngModel)]="client.Phone" required>
                             </mat-form-field>
                         </div>
                     </div>

@@ -116,18 +116,18 @@ export class BetsDialogComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        //if(this.bet.ID_Client == -1){
-        //  console.log("hacer apuestas y creear usuario")
-        //}else{
+        if(this.bet.ID_Client == -1){
+          console.log(this.client);
+          this.postClient();
+        }else{
           this.postBet();
-        //}
+        }
       } 
     });
   }
 
 
   postBet(){
-
     var localBets = "";
     for (var x of this.betValues) {
       localBets += `${x.Number}:${x.Bet},`;
@@ -136,7 +136,7 @@ export class BetsDialogComponent implements OnInit {
     console.log(this.bet.BetsString);
     Swal.fire({
     allowOutsideClick: false,
-    text: 'Espere por favor...',
+    text: 'Creando apuesta, espere por favor...',
     icon: 'info'
     });
     Swal.showLoading();
@@ -153,13 +153,40 @@ export class BetsDialogComponent implements OnInit {
         })
       }else{
         Swal.fire({
+          allowOutsideClick: false,
           text: resp.statusDescription,
-          icon: 'error'
-        });
+          icon: 'error',
+          confirmButtonText: `Ok`
+        }).then((result) => {
+          Swal.close();
+          this.getClients();
+        })
       }
     });
   }
 
+
+
+  postClient(){
+    Swal.fire({
+      allowOutsideClick: false,
+      text: 'Creando cliente, espere por favor...',
+      icon: 'info'
+    });
+    Swal.showLoading();
+
+    this.clientService.postClient(this.client).subscribe( resp =>{
+      if(resp.statusID == 200){
+        this.bet.ID_Client = resp.data[0].ID_Client; 
+        this.postBet();
+      }else{
+        Swal.fire({
+            text: resp.statusDescription,
+            icon: 'error'
+        });
+      }
+    });
+  }
 
 
 }

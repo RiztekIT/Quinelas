@@ -117,9 +117,17 @@ export class ClientsComponent implements AfterViewInit {
     Swal.showLoading();
     this.clientService.deleteClient(ID_Client).subscribe( resp =>{
       if(resp.statusID == 200){
-        Swal.close();
-        console.log('--- Refresh ---');
-        this.getClients();
+
+        Swal.fire({
+          allowOutsideClick: false,
+          text: resp.statusDescription,
+          icon: 'success',
+          confirmButtonText: `Ok`
+        }).then((result) => {
+          Swal.close();
+          this.getClients();
+        })
+
       }else{
         Swal.fire({
             text: resp.statusDescription,
