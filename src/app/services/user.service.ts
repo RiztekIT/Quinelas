@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class UserService {
   private url = "https://riztek.com.mx/php/Quinelas";
 
-  Token:string;
   constructor( 
     private http: HttpClient,
     private router: Router) { 
@@ -69,8 +68,9 @@ export class UserService {
   } 
 
   getUserByToken(){
+    let userToken = this.getToken();
     return this.http.get<UserResponse>(
-      `${this.url}/GET_userByToken.php?Token=${this.Token}`,
+      `${this.url}/GET_userByToken.php?Token=${userToken}`,
       {
         headers : {
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -92,7 +92,7 @@ export class UserService {
 
         if(resp.statusID == 200){
           console.log(resp.data[0].Token);
-          this.setUser(resp.data[0].Token, resp.data[0].Name + " " +resp.data[0].LastName);
+          this.setUser(resp.data[0].Token, resp.data[0].Type, resp.data[0].Name + " " +resp.data[0].LastName);
         }
          return resp;
       })
@@ -122,24 +122,50 @@ export class UserService {
   /**
    * Local functions
    */
-  setUser(Token: string, Name: string){
-    this.Token = Token;
+  setUser(Token: string, Type:string, Name: string){
     localStorage.setItem('Token', Token);
+    if(Type == "Administrador"){
+      localStorage.setItem('Token', Token+"<>r15t34");
+    }
   }
 
   getToken(){
+    var userToken = '';
     if( localStorage.getItem('Token') ){
-      this.Token = localStorage.getItem('Token');
-    }else{
-      this.Token = '';
+      userToken = localStorage.getItem('Token');
+      userToken = userToken.replace("<>r15t34", "");
     }
-    return this.Token;
+    return userToken;
+  }
+
+  getType(){
+    var userToken = '';
+    var userType = false;
+    if( localStorage.getItem('Token') ){
+      userToken = localStorage.getItem('Token');
+      var type = userToken.indexOf('<>r15t34');
+      if(type>0){
+        userType = true;
+      }
+    }
+    console.log(userType);
+    return userType;
   }
 
 
   isLoged():boolean{
 
     if ( this.getToken() ) {
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+
+  isAdmin():boolean{
+
+    if ( this.getType() ) {
       return true;
     }else{
       return false;

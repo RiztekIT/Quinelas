@@ -13,6 +13,8 @@ import { SessionGuard } from './guards/session.guard';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { BetsComponent } from './pages/bets/bets.component';
 import { UsersComponent } from './pages/users/users.component';
+import { ConfigComponent } from './pages/config/config.component';
+import { UserTypeGuard } from './guards/user-type.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,8 +30,8 @@ const routes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent, canActivate:[ SessionGuard]},
     { path: 'clients',   component: ClientsComponent, canActivate:[ SessionGuard]},
     { path: 'bets',   component: BetsComponent, canActivate:[ SessionGuard]},
-    { path: 'users',   component: UsersComponent, canActivate:[ SessionGuard]},
-    /*{ path: 'table-list',     component: TableListComponent },
+    { path: 'users',   component: UsersComponent, canActivate:[ SessionGuard, UserTypeGuard]},
+    { path: 'config',     component: ConfigComponent, canActivate:[ SessionGuard, UserTypeGuard]},/*
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },

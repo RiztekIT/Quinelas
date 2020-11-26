@@ -34,7 +34,6 @@ getUser(){
     if(resp.statusID == 200){
       Swal.close();
       this.user = resp.data[0];
-      console.log(this.user);
     }else{
         Swal.fire({
           text: resp.statusDescription,
@@ -59,7 +58,6 @@ getUser(){
 
     this.UserService.updateUser(this.user).subscribe( resp =>{
       if(resp.statusID == 200){
-        console.log(resp.data[0]);
         Swal.close();
         Swal.fire({
           text: resp.statusDescription,

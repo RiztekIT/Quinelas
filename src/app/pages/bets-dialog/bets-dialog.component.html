@@ -42,10 +42,10 @@
 
 
 
-                <div class="row">
+                <div class="row" *ngFor="let betValue of betValues; let i = index">
                     <div class="col-md-6">
                         <div class="example-container">
-                            <mat-form-field class="example-full-width" *ngFor="let betValue of betValues; let i = index">
+                            <mat-form-field class="example-full-width">
                                 <mat-label>Número (00 - 999)</mat-label>
                                 <input matInput name="betValue{{i}}" placeholder="Número" type="number" [(ngModel)]="betValue.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
                             </mat-form-field>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="example-container">
-                            <mat-form-field class="example-full-width" *ngFor="let betValue of betValues; let i = index">
+                            <mat-form-field class="example-full-width">
                                 <mat-label>Apuesta {{betValue.Bet | currency:'MXN'}}</mat-label>
                                 <input matInput name="betValue{{i + 999}}" type="number" class="example-right-align" [(ngModel)]="betValue.Bet" pattern="^[1-9][0-9]*$" required>
                                 <span matPrefix>$&nbsp;</span>

@@ -45,6 +45,7 @@ import { SafeURLPipe } from './pipes/safe-url.pipe';
 import { BetsDialogTicketComponent } from './pages/bets-dialog-ticket/bets-dialog-ticket.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UsersDialogComponent } from './pages/users-dialog/users-dialog.component';
+import { ConfigComponent } from './pages/config/config.component';
 
 @NgModule({
 
@@ -110,7 +111,8 @@ import { UsersDialogComponent } from './pages/users-dialog/users-dialog.componen
     BetsDialogTicketComponent,
     SafeURLPipe,
     UsersComponent,
-    UsersDialogComponent
+    UsersDialogComponent,
+    ConfigComponent
     
 
   ],
