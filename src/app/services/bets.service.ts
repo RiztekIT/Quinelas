@@ -56,5 +56,28 @@ export class BetsService {
 
 
 
+  postValidateBetsAmount(bet:BetModel ){
+
+    //Add the token to the client model to set the parent user.
+    let userToken = this.userService.getToken();
+    const betWithUserToken = {
+      ... bet,
+      userToken
+    }
+
+    return this.http.post<BetsResponse>(
+      `${this.url}/POST_validateBetsAmount.php`, betWithUserToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
+
+
+
 
 }

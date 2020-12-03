@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import  Swal  from 'sweetalert2';
@@ -21,29 +22,57 @@ export class BetsDialogComponent implements OnInit {
   betValues = [];
   bet: BetModel;
   clients:any;
+  todayDate = new Date();
+
+  allDates = 'true';
+  allDatesDate:any;
+
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  }
+
+
+  
   constructor(
     public dialogRef: MatDialogRef<BetsDialogComponent>,
     private betService: BetsService,
     private clientService: ClientService) {
+
+      // add a day
+      this.todayDate.setDate(this.todayDate.getDate() + 1);
       this.client  = new ClientModel();
       this.betValues.push(
         {
           Number: "",
-          Bet: ""
+          Bet: "",
+          Date: ""
         });
 
     }
 
 
     removevalue(i){
-      this.betValues.splice(i,1);
+      //this.betValues.splice(i,1);
+      console.log(this.betValues);
+      for (var x of this.betValues) {
+          x.Date = this.allDatesDate;
+      }
+      console.log(this.betValues);
     }
   
     addvalue(){
+      var newBetDate = "";
+      if(this.allDates == 'false'){
+        newBetDate = this.allDatesDate;
+      }
       this.betValues.push(
         {
           Number: "",
-          Bet: ""
+          Bet: "",
+          Date: newBetDate
         });
 
 
@@ -86,19 +115,30 @@ export class BetsDialogComponent implements OnInit {
 
   onSubmit(betForm:NgForm){
     if (betForm.invalid) { return; }
+    this.confirmBets();
+  }
+
+
+
+  confirmBets(){
 
     var table = "";
     for (var x of this.betValues) {
+      var res = x.Date.toString().split(' ');
+      var dateString = res[2]+"/"+this.monthToNumber(res[1])+"/"+res[3];
       table += `<tr>
                       <td>${x.Number}</td>
                       <td>$${x.Bet}</td>
+                      <td>${dateString}</td>
                   </tr>`;
-    }
+                  
+      }
 
     table = `<table border=1 width="100%"> 
       <tr>
         <th>Número</th>
         <th>Apuesta</th>
+        <th>Fecha</th>
       </tr>
        ${table}
     </table>`;
@@ -116,21 +156,63 @@ export class BetsDialogComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        if(this.bet.ID_Client == -1){
-          console.log(this.client);
-          this.postClient();
-        }else{
-          this.postBet();
-        }
+       this.postValidateBetsAmount();
       } 
     });
   }
 
 
+
+  postValidateBetsAmount(){
+    var localBets = "";
+    for (var x of this.betValues) {
+      var res = x.Date.toString().split(' ');
+      var dateString = res[2]+"/"+this.monthToNumber(res[1])+"/"+res[3];
+      localBets += `${x.Number}:${x.Bet}:${dateString},`;
+    }
+    this.bet.BetsString = localBets;
+    Swal.fire({
+      allowOutsideClick: false,
+      text: 'Verificando disponibilidad de apuesta, espere por favor...',
+      icon: 'info'
+      });
+    Swal.showLoading();
+    this.betService.postValidateBetsAmount(this.bet).subscribe( resp =>{
+      console.log(resp);
+      if(resp.statusID == 200){
+          Swal.close();
+          if(this.bet.ID_Client == -1){
+            console.log(this.client);
+            this.postClient();
+          }else{
+            this.postBet();
+          }
+      }else{
+        Swal.fire({
+          allowOutsideClick: false,
+          title: 'No se genero ninguna apuesta.',
+          html: resp.statusDescription,
+          icon: 'error',
+          confirmButtonText: `Ok`
+        }).then((result) => {
+          Swal.close();
+          return;
+        })
+      }
+    });
+  }
+ 
+
+
+
+
+  
   postBet(){
     var localBets = "";
     for (var x of this.betValues) {
-      localBets += `${x.Number}:${x.Bet},`;
+      var res = x.Date.toString().split(' ');
+      var dateString = res[2]+"/"+this.monthToNumber(res[1])+"/"+res[3];
+      localBets += `${x.Number}:${x.Bet}:${dateString},`;
     }
     this.bet.BetsString = localBets;
     console.log(this.bet.BetsString);
@@ -188,5 +270,46 @@ export class BetsDialogComponent implements OnInit {
     });
   }
 
+  monthToNumber(month){
+    switch(month) {
+      case "Jan":
+        return "01";
+        break;
+      case "Feb":
+        return "02";
+        break;
+      case "Mar":
+        return "03";
+        break;
+      case "Apr":
+        return "04";
+        break;
+      case "May":
+        return "05";
+        break;
+      case "Jun":
+        return "06";
+        break;
+      case "Jul":
+        return "07";
+        break;
+      case "Aug":
+        return "08";
+        break;
+      case "Sep":
+        return "09";
+        break;
+      case "Oct":
+        return "10";
+        break;
+      case "Nov":
+        return "11";
+        break;
+      case "Dec":
+        return "12";
+        break;
+      default:
+    }
+  }
 
 }

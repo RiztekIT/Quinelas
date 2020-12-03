@@ -19,6 +19,13 @@
                         </button>
                         <div class="table-responsive">
 
+                            <mat-form-field>
+                                <mat-label>Buscar</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                            </mat-form-field>
+
+
+
                             <table mat-table [dataSource]="dataSource" matSort class="table">
 
                                 <!--- Note that these columns can be defined in any order.
@@ -29,6 +36,13 @@
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
                                     <td mat-cell *matCellDef="let element"> {{element.ID_Bet}} </td>
                                 </ng-container>
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="ID_Group">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ID_Group}} </td>
+                                </ng-container>
+
 
                                 <!-- Name Column -->
                                 <ng-container matColumnDef="ClientFullName">
@@ -49,6 +63,13 @@
                                 </ng-container>
 
                                 <!-- Symbol Column -->
+                                <ng-container matColumnDef="Date">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de juego </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+                                </ng-container>
+
+
+                                <!-- Symbol Column -->
                                 <ng-container matColumnDef="Created">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Creada </th>
                                     <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
@@ -59,12 +80,14 @@
                                     <td mat-cell *matCellDef="let element">
 
                                         <button mat-icon-button color="warn">
-                                            <a href="https://wa.me/52{{element.clientPhone}}"  target="_blank" color="warn">
-                                                <mat-icon>mobile_screen_share</mat-icon>
+                                            <a href="https://riztek.com.mx/php/Quinelas/bet_ticket.php?ID_Bet={{element.ID_Bet}}"  target="_blank" color="warn">
+                                                <mat-icon>local_offer</mat-icon>
                                             </a> 
                                         </button>
                                         <button mat-icon-button color="warn" (click)="viewBetTicket(element)">
-                                            <mat-icon>confirmation_number</mat-icon>
+                                            <a href="https://riztek.com.mx/php/Quinelas/bet_tickets.php?betsGroup={{element.ID_Group}}"  target="_blank" color="warn">
+                                                <mat-icon>more</mat-icon>
+                                            </a> 
                                         </button>
                                 </ng-container>
 

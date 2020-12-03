@@ -19,7 +19,7 @@ export class BetsComponent implements AfterViewInit {
 
   bet = new BetModel();
 
-  displayedColumns: string[] = ['ID_Bet', 'ClientFullName', 'Number', 'Bet', 'Created', 'Actions'];
+  displayedColumns: string[] = ['ID_Bet', 'ID_Group',  'ClientFullName', 'Number', 'Bet', 'Date', 'Created', 'Actions'];
   dataSource:any;
 
   constructor(private betsService: BetsService,
@@ -32,6 +32,14 @@ export class BetsComponent implements AfterViewInit {
     this.getBets();
   }
 
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  
   getBets(){
     Swal.fire({
       allowOutsideClick: false,
@@ -77,6 +85,7 @@ export class BetsComponent implements AfterViewInit {
 
 
   viewBetTicket(element:BetModel){
+    return;
     console.log(element.ID_Bet);
 
 

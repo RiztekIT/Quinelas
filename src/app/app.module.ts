@@ -24,7 +24,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule } from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
-  
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import {
   AgmCoreModule
@@ -46,6 +49,7 @@ import { BetsDialogTicketComponent } from './pages/bets-dialog-ticket/bets-dialo
 import { UsersComponent } from './pages/users/users.component';
 import { UsersDialogComponent } from './pages/users-dialog/users-dialog.component';
 import { ConfigComponent } from './pages/config/config.component';
+import { InfoComponent } from './pages/info/info.component';
 
 @NgModule({
 
@@ -85,6 +89,9 @@ import { ConfigComponent } from './pages/config/config.component';
     MatListModule,
     MatStepperModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
 
     BrowserAnimationsModule,
     HttpClientModule,
@@ -112,11 +119,12 @@ import { ConfigComponent } from './pages/config/config.component';
     SafeURLPipe,
     UsersComponent,
     UsersDialogComponent,
-    ConfigComponent
+    ConfigComponent,
+    InfoComponent
     
 
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -10,7 +10,7 @@
                             <i class="material-icons">confirmation_number</i>
                         </div>
                         <p class="card-category">Números vendidos</p>
-                        <h3 class="card-title">350
+                        <h3 class="card-title">{{dash.TotalBets}}
                             <!--<small>GB</small>-->
                         </h3>
                     </div>
@@ -28,7 +28,7 @@
                             <i class="material-icons">request_quote</i>
                         </div>
                         <p class="card-category">Cantidad de apuestas</p>
-                        <h3 class="card-title">$34,245</h3>
+                        <h3 class="card-title">{{dash.AmountBets | currency:'MXN'}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -44,7 +44,7 @@
                             <i class="material-icons">people_alt</i>
                         </div>
                         <p class="card-category">Clientes</p>
-                        <h3 class="card-title">850</h3>
+                        <h3 class="card-title">{{dash.TotalClients}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -60,7 +60,7 @@
                             <i class="material-icons">group</i>
                         </div>
                         <p class="card-category">Usuarios</p>
-                        <h3 class="card-title">15</h3>
+                        <h3 class="card-title">{{dash.TotalUsers}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">

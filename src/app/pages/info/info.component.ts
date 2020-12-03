@@ -1,35 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { DashModel } from 'app/models/dashboard.model';
+import { InfoModel } from 'app/models/info.model';
 import { AdminService } from 'app/services/admin.service';
 import  Swal  from 'sweetalert2';
 
 @Component({
-  selector: 'app-config',
-  templateUrl: './config.component.html',
-  styleUrls: ['./config.component.css']
+  selector: 'app-info',
+  templateUrl: './info.component.html',
+  styleUrls: ['./info.component.css']
 })
-export class ConfigComponent implements OnInit {
+export class InfoComponent implements OnInit {
 
-  dash = new DashModel();
+  info = new InfoModel();
 
   constructor(private adminService:AdminService) { }
 
   ngOnInit(): void {
-    this.dash  = new DashModel();
-    this.getDashboard();
+    this.info  = new InfoModel();
+    this.getInfo();
   }
 
-  getDashboard(){
+  getInfo(){
     Swal.fire({
       allowOutsideClick: false,
       text: 'Espere por favor...',
       icon: 'info'
     });
     Swal.showLoading();
-    this.adminService.getDashboard().subscribe( resp =>{
+    this.adminService.getInfo().subscribe( resp =>{
       if(resp.statusID == 200){
         Swal.close();
-        this.dash = resp.data[0];
+        this.info = resp.data[0];
       }else{
           Swal.fire({
             text: resp.statusDescription,
