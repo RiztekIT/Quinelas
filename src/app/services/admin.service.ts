@@ -4,6 +4,8 @@ import { DashModel, DashResponse } from '../models/dashboard.model';
 import { map } from 'rxjs/operators'
 import { UserService } from './user.service';
 import { InfoResponse } from 'app/models/info.model';
+import { BetsResponse } from 'app/models/bets.model';
+import { ConfigModel, ConfigResponse } from 'app/models/config.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +47,46 @@ export class AdminService {
       }
     )
   } 
+
+
+  getAdminBets(){
+    let userToken = this.userService.getToken();
+    return this.http.get<BetsResponse>(
+      `${this.url}/GET_adminBets.php?Token=`+userToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
+  getConfig(){
+    let userToken = this.userService.getToken();
+    return this.http.get<ConfigResponse>(
+      `${this.url}/GET_config.php?Token=`+userToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
+  updateConfig(config:ConfigModel ){
+    return this.http.post<ConfigResponse>(
+      `${this.url}/UPDATE_config.php`, config,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
 
 
 

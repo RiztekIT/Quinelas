@@ -9,7 +9,7 @@
                         <div class="card-icon">
                             <i class="material-icons">confirmation_number</i>
                         </div>
-                        <p class="card-category">Números vendidos</p>
+                        <p class="card-category">Números</p>
                         <h3 class="card-title">{{dash.TotalBets}}
                             <!--<small>GB</small>-->
                         </h3>
@@ -27,7 +27,7 @@
                         <div class="card-icon">
                             <i class="material-icons">request_quote</i>
                         </div>
-                        <p class="card-category">Cantidad de apuestas</p>
+                        <p class="card-category">Apuestas</p>
                         <h3 class="card-title">{{dash.AmountBets | currency:'MXN'}}</h3>
                     </div>
                     <div class="card-footer">
@@ -78,96 +78,123 @@
 
         <div class="row">
 
-            <div class="col-lg-6 col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-tabs card-header-primary">
-                        <h4 class="card-title">Employees Stats</h4>
-                        <p class="card-category">New employees on 15th September, 2016</p>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-hover">
-                            <thead class="text-warning">
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Salary</th>
-                                <th>Country</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                    <td>Niger</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                    <td>Curaçao</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                    <td>Netherlands</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
-                                    <td>Korea, South</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-header card-header-warning">
-                        <h4 class="card-title">Employees Stats</h4>
-                        <p class="card-category">New employees on 15th September, 2016</p>
+                        <h4 class="card-title">Apuestas</h4>
+                        <p class="card-category">Maximo por numéro</p>
                     </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-hover">
-                            <thead class="text-warning">
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Salary</th>
-                                <th>Country</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                    <td>Niger</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                    <td>Curaçao</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                    <td>Netherlands</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
-                                    <td>Korea, South</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit(configForm)" #configForm="ngForm">
+
+                            <div class="col-md-12">
+                                <div class="example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Maximo: {{config.MaxAmount | currency:'MXN'}}</mat-label>
+                                        <input matInput name="MaxAmount" type="number" class="example-right-align" [(ngModel)]="config.MaxAmount" pattern="^[1-9][0-9]*$" required>
+                                        <span matPrefix>$&nbsp;</span>
+                                        <span matSuffix>.00</span>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-right">Guardar</button>
+                            <div class="clearfix"></div>
+                        </form>
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="col-lg-112 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Apuestas</h4>
+                        <p class="card-category"> Ultimas puestas generadas</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <mat-form-field>
+                                <mat-label>Buscar</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+                            </mat-form-field>
+
+
+
+                            <table mat-table [dataSource]="dataSource" matSort class="table">
+
+                                <!--- Note that these columns can be defined in any order.
+                                      The actual rendered columns are set as a property on the row definition" -->
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="ID_Bet">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ID_Bet}} </td>
+                                </ng-container>
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="UserFullName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendedor </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.UserFullName}} </td>
+                                </ng-container>
+
+
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="ID_Group">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ID_Group}} </td>
+                                </ng-container>
+
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="ClientFullName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ClientFullName}} </td>
+                                </ng-container>
+
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="Number">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Number}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="Bet">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apuesta </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Bet | currency:'MXN'}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="Date">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de juego </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+                                </ng-container>
+
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="Created">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Creada </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
+                                </ng-container>
+
+
+
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
 
 
