@@ -74,7 +74,8 @@ export class BetsComponent implements AfterViewInit {
     }
 
     const dialogRef = this.dialog.open(BetsDialogComponent, {
-      width: DialogWidth
+      width: DialogWidth,
+      height: '450px'
       
     });
     dialogRef.afterClosed().subscribe(result => {

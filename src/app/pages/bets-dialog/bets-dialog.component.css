@@ -2,3 +2,35 @@
     box-shadow: none !important;
     margin-bottom: 0px !important;
 }
+
+ ::ng-deep .mat-dialog-container {
+    overflow-y: auto !important;
+}
+
+
+/* width */
+
+::ng-deep ::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+/* Track */
+
+::ng-deep ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+::ng-deep ::-webkit-scrollbar-thumb {
+    background: #dedede;
+}
+
+
+/* Handle on hover */
+
+::ng-deep ::-webkit-scrollbar-thumb:hover {
+    background: #dedede;
+}

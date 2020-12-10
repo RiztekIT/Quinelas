@@ -82,6 +82,7 @@ export class UsersComponent implements AfterViewInit {
 
     const dialogRef = this.dialog.open(UsersDialogComponent, {
       width: DialogWidth,
+      height: '570px',
       data:  this.user
       
     });
