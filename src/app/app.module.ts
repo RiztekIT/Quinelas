@@ -50,6 +50,8 @@ import { UsersComponent } from './pages/users/users.component';
 import { UsersDialogComponent } from './pages/users-dialog/users-dialog.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { InfoComponent } from './pages/info/info.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
 
@@ -100,7 +102,8 @@ import { InfoComponent } from './pages/info/info.component';
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [
     AppComponent,
