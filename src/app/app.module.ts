@@ -52,6 +52,8 @@ import { ConfigComponent } from './pages/config/config.component';
 import { InfoComponent } from './pages/info/info.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { QrscannerComponent } from './pages/qrscanner/qrscanner.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
 
@@ -103,7 +105,8 @@ import { environment } from '../environments/environment';
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ZXingScannerModule
   ],
   declarations: [
     AppComponent,
@@ -123,7 +126,8 @@ import { environment } from '../environments/environment';
     UsersComponent,
     UsersDialogComponent,
     ConfigComponent,
-    InfoComponent
+    InfoComponent,
+    QrscannerComponent
     
 
   ],

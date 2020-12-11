@@ -9,6 +9,7 @@ import { BetsService } from 'app/services/bets.service';
 import { BetModel } from 'app/models/bets.model';
 import { BetsDialogComponent } from '../bets-dialog/bets-dialog.component';
 import { BetsDialogTicketComponent } from '../bets-dialog-ticket/bets-dialog-ticket.component';
+import { QrscannerComponent } from '../qrscanner/qrscanner.component';
 
 @Component({
   selector: 'app-bets',
@@ -83,6 +84,26 @@ export class BetsComponent implements AfterViewInit {
       this.getBets();
     });
   }
+
+  openQRDialog(){
+    let DialogWidth = "100%";
+    if ($(window).width() > 991) { // Computer
+       DialogWidth = "50%";
+    }
+
+    const dialogRef = this.dialog.open(QrscannerComponent, {
+      width: DialogWidth,
+      height: '450px'
+      
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Escaner', result);
+      this.getBets();
+    });
+
+
+  }
+
 
 
   viewBetTicket(element:BetModel){
