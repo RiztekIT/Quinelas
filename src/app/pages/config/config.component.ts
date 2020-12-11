@@ -40,10 +40,15 @@ export class ConfigComponent implements OnInit {
     private betsService: BetsService,
     public dialog: MatDialog) { }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   
+
+
+    @ViewChild('t1Sort') sort: MatSort;  // use two diff. sort for two table
+    @ViewChild('t2Sort') sort2: MatSort;
+  
+    @ViewChild('t1Paginator') paginator: MatPaginator;
+    @ViewChild('t2Paginator') paginator2: MatPaginator;
+
 
 
   ngOnInit(): void {
@@ -226,20 +231,20 @@ export class ConfigComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
-  getAdminBetsWinners(){
+  getAdminBetsWinners(filterDate?){
     Swal.fire({
       allowOutsideClick: false,
       text: 'Espere por favor...',
       icon: 'info'
     });
     Swal.showLoading();
-    this.adminService.getAdminBetsWinners().subscribe( resp =>{
+    this.adminService.getAdminBetsWinners(filterDate).subscribe( resp =>{
       console.log(resp);
       if(resp.statusID == 200){
         Swal.close();
         this.dataSource2 = new MatTableDataSource<BetModel>(resp.data);
-        this.dataSource2.paginator = this.paginator;
-        this.dataSource2.sort = this.sort;
+        this.dataSource2.paginator = this.paginator2;
+        this.dataSource2.sort = this.sort2;
         console.log(resp.data);
       }else{
           Swal.fire({
@@ -252,7 +257,13 @@ export class ConfigComponent implements OnInit {
 
 
   betsWinnersDateFilterTable(){
-    console.log(this.betsWinnersDateFilter);
+    var betsWinnersDateFilterFormated = "";
+    if(this.betsWinnersDateFilter){
+      betsWinnersDateFilterFormated = this.betsWinnersDateFilter.toString().split(' ');
+      betsWinnersDateFilterFormated = betsWinnersDateFilterFormated[2]+"/"+this.monthToNumber(betsWinnersDateFilterFormated[1])+"/"+betsWinnersDateFilterFormated[3];
+    }
+    this.getAdminBetsWinners(betsWinnersDateFilterFormated);
+    console.log(betsWinnersDateFilterFormated);
   }
 
 

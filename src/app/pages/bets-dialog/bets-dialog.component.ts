@@ -84,6 +84,7 @@ export class BetsDialogComponent implements OnInit {
           Date: newBetDate
         });
 
+        console.log(this.betValues);
 
     }
 
@@ -130,7 +131,6 @@ export class BetsDialogComponent implements OnInit {
 
 
   confirmBets(){
-
     var table = "";
     for (var x of this.betValues) {
       var res = x.Date.toString().split(' ');

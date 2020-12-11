@@ -62,10 +62,10 @@ export class AdminService {
     )
   } 
 
-  getAdminBetsWinners(){
+  getAdminBetsWinners(filterDate?){
     let userToken = this.userService.getToken();
     return this.http.get<BetsResponse>(
-      `${this.url}/GET_adminBetsWinners.php?Token=`+userToken,
+      `${this.url}/GET_adminBetsWinners.php?Token=`+userToken+`&filterDate=`+filterDate,
       {
         headers : {
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'

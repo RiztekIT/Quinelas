@@ -120,7 +120,7 @@
                                     <div class="example-container">
                                         <mat-form-field class="example-full-width">
                                             <mat-label>Número ganador (00 - 999)</mat-label>
-                                            <input matInput name="betsWinner.Number" placeholder="Número" type="number" [(ngModel)]="betsWinner.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
+                                            <input matInput name="betsWinner.Number" placeholder="Número" type="text" [(ngModel)]="betsWinner.Number" pattern="^[0-9]{1,3}$" required>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -160,35 +160,31 @@
 
 
                     <div class="card-body">
-                        <div class="table-responsive">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="example-container">
-                                        <mat-form-field>
-                                            <mat-label>Buscar</mat-label>
-                                            <input matInput (keyup)="applyBetsWinnersFilter($event)" placeholder="Buscar" #input>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="example-container">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Fecha del sorteo</mat-label>
-                                            <input matInput #ref (dateChange)="betsWinnersDateFilterTable(ref.value)" name="betsWinnersDateFilter" [matDatepicker]="datePicker" [(ngModel)]="betsWinnersDateFilter" required>
-                                            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-                                            <mat-datepicker #datePicker></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="example-container">
+                                    <mat-form-field>
+                                        <mat-label>Buscar</mat-label>
+                                        <input matInput (keyup)="applyBetsWinnersFilter($event)" placeholder="Buscar" #input>
+                                    </mat-form-field>
                                 </div>
                             </div>
 
+                            <div class="col-md-6">
+                                <div class="example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Fecha del sorteo</mat-label>
+                                        <input matInput #ref (dateChange)="betsWinnersDateFilterTable(ref.value)" name="betsWinnersDateFilter" [matDatepicker]="datePicker" [(ngModel)]="betsWinnersDateFilter">
+                                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #datePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
 
 
-
-
-                            <table mat-table [dataSource]="dataSource2" matSort class="table">
+                        <div class="table-responsive">
+                            <table mat-table [dataSource]="dataSource2" #t2Sort="matSort" matSort class="table">
 
                                 <!--- Note that these columns can be defined in any order.
                                       The actual rendered columns are set as a property on the row definition" -->
@@ -201,7 +197,7 @@
 
                                 <!-- Position Column -->
                                 <ng-container matColumnDef="WinnerNumber">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Número ganador </th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. ganador </th>
                                     <td mat-cell *matCellDef="let element"> {{element.WinnerNumber}} </td>
                                 </ng-container>
 
@@ -263,7 +259,7 @@
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
                             </table>
-                            <mat-paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
+                            <mat-paginator #t2Paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
 
                         </div>
                     </div>
@@ -289,7 +285,7 @@
 
 
 
-                            <table mat-table [dataSource]="dataSource" matSort class="table">
+                            <table mat-table [dataSource]="dataSource" #t1Sort="matSort" matSort class="table">
 
                                 <!--- Note that these columns can be defined in any order.
                                       The actual rendered columns are set as a property on the row definition" -->
@@ -352,8 +348,7 @@
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                             </table>
-                            <mat-paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
-
+                            <mat-paginator #t1Paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
                         </div>
                     </div>
                 </div>

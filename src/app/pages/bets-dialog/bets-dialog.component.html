@@ -79,7 +79,7 @@
                         <div class="example-container">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Número (00 - 999)</mat-label>
-                                <input matInput name="betValue{{i}}" placeholder="Número" type="number" [(ngModel)]="betValue.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
+                                <input matInput name="betValue{{i}}" placeholder="Número" type="text" [(ngModel)]="betValue.Number" pattern="^[0-9]{1,3}$" required>
                             </mat-form-field>
                         </div>
                     </div>
