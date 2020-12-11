@@ -8,6 +8,7 @@ import { BetsService } from 'app/services/bets.service';
 import { BetModel } from 'app/models/bets.model';
 import { ClientService } from 'app/services/client.service';
 import { ClientModel, ClientResponse } from 'app/models/clients.model';
+import { isEmptyObject } from 'jquery';
 
 
 
@@ -63,8 +64,7 @@ export class BetsDialogComponent implements OnInit {
     }
 
 
-    removevalue(i){
-      //this.betValues.splice(i,1);
+    setAllBetsDates(i){
       console.log(this.betValues);
       for (var x of this.betValues) {
           x.Date = this.allDatesDate;
@@ -72,6 +72,27 @@ export class BetsDialogComponent implements OnInit {
       console.log(this.betValues);
     }
   
+    removevalue(i){
+
+      Swal.fire({
+        allowOutsideClick: false,
+        title: 'Eliminar apuesta',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Eliminar`,
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.betValues.splice(i,1);
+        }
+        Swal.close();
+      })
+
+
+    }
+
+
     addvalue(){
       var newBetDate = "";
       if(this.allDates == 'false'){
@@ -84,7 +105,7 @@ export class BetsDialogComponent implements OnInit {
           Date: newBetDate
         });
 
-        console.log(this.betValues);
+    console.log(this.betValues);
 
     }
 
@@ -124,7 +145,7 @@ export class BetsDialogComponent implements OnInit {
 
 
   onSubmit(betForm:NgForm){
-    if (betForm.invalid) { return; }
+    if (betForm.invalid || isEmptyObject(this.betValues) ) { return; }
     this.confirmBets();
   }
 

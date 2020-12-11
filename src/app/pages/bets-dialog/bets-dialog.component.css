@@ -3,6 +3,14 @@
     margin-bottom: 0px !important;
 }
 
+.delete-bet {
+    position: absolute;
+    right: -20px;
+    top: 18px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
  ::ng-deep .mat-dialog-container {
     overflow-y: auto !important;
 }

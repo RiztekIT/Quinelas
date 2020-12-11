@@ -34,6 +34,7 @@ export class ConfigComponent implements OnInit {
   dataSource2:any;
 
   betsWinnersDateFilter:any;
+  betsDateFilter:any;
 
   constructor(
     private adminService:AdminService,
@@ -106,14 +107,14 @@ export class ConfigComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  getAdminBets(){
+  getAdminBets(filterDate?){
     Swal.fire({
       allowOutsideClick: false,
       text: 'Espere por favor...',
       icon: 'info'
     });
     Swal.showLoading();
-    this.adminService.getAdminBets().subscribe( resp =>{
+    this.adminService.getAdminBets(filterDate).subscribe( resp =>{
       console.log(resp);
       if(resp.statusID == 200){
         Swal.close();
@@ -266,7 +267,15 @@ export class ConfigComponent implements OnInit {
     console.log(betsWinnersDateFilterFormated);
   }
 
-
+  betsDateFilterTable(){
+    var betsDateFilterFormated = "";
+    if(this.betsDateFilter){
+      betsDateFilterFormated = this.betsDateFilter.toString().split(' ');
+      betsDateFilterFormated = betsDateFilterFormated[2]+"/"+this.monthToNumber(betsDateFilterFormated[1])+"/"+betsDateFilterFormated[3];
+    }
+    this.getAdminBets(betsDateFilterFormated);
+    console.log(betsDateFilterFormated);
+  }
 
 
 

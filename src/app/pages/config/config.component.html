@@ -156,10 +156,6 @@
                         <p class="card-category"> Apuestas ganadoras</p>
                     </div>
 
-
-
-
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -278,15 +274,33 @@
                         <p class="card-category"> Ultimas puestas generadas</p>
                     </div>
                     <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="example-container">
+                                    <mat-form-field>
+                                        <mat-label>Buscar</mat-label>
+                                        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Fecha del sorteo</mat-label>
+                                        <input matInput #refe (dateChange)="betsDateFilterTable(refe.value)" name="betsDateFilter" [matDatepicker]="betsDatePickerFilter" [(ngModel)]="betsDateFilter">
+                                        <mat-datepicker-toggle matSuffix [for]="betsDatePickerFilter"></mat-datepicker-toggle>
+                                        <mat-datepicker #betsDatePickerFilter></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
                         <div class="table-responsive">
-
-                            <mat-form-field>
-                                <mat-label>Buscar</mat-label>
-                                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
-                            </mat-form-field>
-
-
-
                             <table mat-table [dataSource]="dataSource" #t1Sort="matSort" matSort class="table">
 
                                 <!--- Note that these columns can be defined in any order.
