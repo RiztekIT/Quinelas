@@ -34,6 +34,19 @@ export class BetsService {
   } 
 
 
+  getBetsWinners(){
+    let userToken = this.userService.getToken();
+    return this.http.get<BetsResponse>(
+      `${this.url}/GET_betsWinners.php?Token=`+userToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
 
   postBet(bet:BetModel ){
 

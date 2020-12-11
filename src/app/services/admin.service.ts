@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 import { InfoResponse } from 'app/models/info.model';
 import { BetsResponse } from 'app/models/bets.model';
 import { ConfigModel, ConfigResponse } from 'app/models/config.model';
+import { BetsWinnerModel, BetsWinnerResponse } from 'app/models/betsWinners.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,42 @@ export class AdminService {
       }
     )
   } 
+
+  getAdminBetsWinners(){
+    let userToken = this.userService.getToken();
+    return this.http.get<BetsResponse>(
+      `${this.url}/GET_adminBetsWinners.php?Token=`+userToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
+
+  postBetsWinner(betsWinner:BetsWinnerModel){
+    //Add the token to the client model to set the parent user.
+    let userToken = this.userService.getToken();
+    const BetsWinnersWithUserToken = {
+      ... betsWinner,
+      userToken
+    }
+    console.log(BetsWinnersWithUserToken);
+    return this.http.post<BetsWinnerResponse>(
+      `${this.url}/POST_adminBetsWinners.php`, BetsWinnersWithUserToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
+
+
 
 
   getConfig(){

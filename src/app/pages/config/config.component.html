@@ -114,13 +114,13 @@
                         <p class="card-category">Agegar número ganador</p>
                     </div>
                     <div class="card-body">
-                        <form (ngSubmit)="onSubmit(configForm)" #configForm="ngForm">
+                        <form (ngSubmit)="onSubmitBetWinerForm(BetWinerForm)" #BetWinerForm="ngForm">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="example-container">
                                         <mat-form-field class="example-full-width">
-                                            <mat-label>Número (00 - 999)</mat-label>
-                                            <input matInput name="BetWinerNumber" placeholder="Número" type="number" [(ngModel)]="BetWinerNumber" pattern="^(?:0|[1-9]\d{0,2})$" required>
+                                            <mat-label>Número ganador (00 - 999)</mat-label>
+                                            <input matInput name="betsWinner.Number" placeholder="Número" type="number" [(ngModel)]="betsWinner.Number" pattern="^(?:0|[1-9]\d{0,2})$" required>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -128,8 +128,8 @@
                                 <div class="col-md-6">
                                     <div class="example-container">
                                         <mat-form-field class="example-full-width">
-                                            <mat-label>Fecha del juego</mat-label>
-                                            <input matInput name="BetWinerDate" [min]="todayDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="BetWinerDate" [disabled]="allDates == 'false'" required>
+                                            <mat-label>Fecha del sorteo</mat-label>
+                                            <input matInput name="betsWinner.Date" [min]="todayDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="betsWinner.Date" [disabled]="allDates == 'false'" required>
                                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                             <mat-datepicker #picker></mat-datepicker>
                                         </mat-form-field>
@@ -144,6 +144,107 @@
                 </div>
             </div>
 
+
+
+
+
+            <div class="col-lg-112 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title ">Apuestas</h4>
+                        <p class="card-category"> Apuestas ganadoras</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <mat-form-field>
+                                <mat-label>Buscar</mat-label>
+                                <input matInput (keyup)="applyBetsWinnersFilter($event)" placeholder="Buscar" #input>
+                            </mat-form-field>
+
+
+
+                            <table mat-table [dataSource]="dataSource2" matSort class="table">
+
+                                <!--- Note that these columns can be defined in any order.
+                                      The actual rendered columns are set as a property on the row definition" -->
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="ID_Bet">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ID_Bet}} </td>
+                                </ng-container>
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="WinnerNumber">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Número ganador </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.WinnerNumber}} </td>
+                                </ng-container>
+
+
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="UserFullName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendedor </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.UserFullName}} </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="ClientFullName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ClientFullName}} </td>
+                                </ng-container>
+
+
+
+
+
+
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="ID_Group">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ID_Group}} </td>
+                                </ng-container>
+
+
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="Number">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Number}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="Bet">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apuesta </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Bet | currency:'MXN'}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="Date">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de juego </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+                                </ng-container>
+
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="Created">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Creada </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
+                                </ng-container>
+
+
+
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -176,18 +277,18 @@
                                 </ng-container>
 
                                 <!-- Position Column -->
+                                <ng-container matColumnDef="ID_Group">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.ID_Group}} </td>
+                                </ng-container>
+
+
+                                <!-- Position Column -->
                                 <ng-container matColumnDef="UserFullName">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendedor </th>
                                     <td mat-cell *matCellDef="let element"> {{element.UserFullName}} </td>
                                 </ng-container>
 
-
-
-                                <!-- Position Column -->
-                                <ng-container matColumnDef="ID_Group">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Grupo </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.ID_Group}} </td>
-                                </ng-container>
 
 
                                 <!-- Name Column -->
@@ -236,8 +337,9 @@
 
 
 
+
+
+
         </div>
-
-
     </div>
 </div>
