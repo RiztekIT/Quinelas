@@ -129,8 +129,7 @@
                                     <div class="example-container">
                                         <mat-form-field class="example-full-width">
                                             <mat-label>Fecha del sorteo</mat-label>
-                                            <!-- <input matInput name="betsWinner.Date" [min]="todayDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="betsWinner.Date" [disabled]="allDates == 'false'" required> -->
-                                            <input matInput name="betsWinner.Date" [matDatepicker]="picker" [(ngModel)]="betsWinner.Date" required>
+                                            <input matInput name="betsWinner.Date" [min]="todayDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="betsWinner.Date" [disabled]="allDates == 'false'" required>
                                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                             <mat-datepicker #picker></mat-datepicker>
                                         </mat-form-field>
@@ -177,7 +176,7 @@
                                     <div class="example-container">
                                         <mat-form-field class="example-full-width">
                                             <mat-label>Fecha del sorteo</mat-label>
-                                            <input matInput #ref (dateChange)="betsWinnersDateFilterTable()" name="betsWinnersDateFilter" [matDatepicker]="datePicker" [(ngModel)]="betsWinnersDateFilter" required>
+                                            <input matInput #ref (dateChange)="betsWinnersDateFilterTable(ref.value)" name="betsWinnersDateFilter" [matDatepicker]="datePicker" [(ngModel)]="betsWinnersDateFilter" required>
                                             <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
                                             <mat-datepicker #datePicker></mat-datepicker>
                                         </mat-form-field>
