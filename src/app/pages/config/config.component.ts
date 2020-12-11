@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DashModel } from 'app/models/dashboard.model';
 import { AdminService } from 'app/services/admin.service';
@@ -12,7 +12,8 @@ import { BetsService } from 'app/services/bets.service';
 import { BetModel } from 'app/models/bets.model';
 import { ConfigModel } from 'app/models/config.model';
 import { BetsWinnerModel } from 'app/models/betsWinners.model';
-
+import { EventEmitter } from 'events';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ConfigComponent implements OnInit {
   displayedColumns2: string[] = ['ID_Bet',  'WinnerNumber',  'UserFullName', 'ClientFullName', 'ID_Group',  'Number', 'Bet', 'Date', 'Created'];
   dataSource2:any;
 
+  betsWinnersDateFilter:any;
 
   constructor(
     private adminService:AdminService,
@@ -40,6 +42,9 @@ export class ConfigComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  
+
 
   ngOnInit(): void {
     this.dash  = new DashModel();
@@ -246,7 +251,9 @@ export class ConfigComponent implements OnInit {
   }
 
 
-
+  betsWinnersDateFilterTable(){
+    console.log(this.betsWinnersDateFilter);
+  }
 
 
 

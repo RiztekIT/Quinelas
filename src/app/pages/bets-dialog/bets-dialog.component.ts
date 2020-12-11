@@ -28,11 +28,11 @@ export class BetsDialogComponent implements OnInit {
   allDatesDate:any;
 
 
-  myFilter = (d: Date | null): boolean => {
+  /*myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
-  }
+  }*/
 
 
   
@@ -41,8 +41,17 @@ export class BetsDialogComponent implements OnInit {
     private betService: BetsService,
     private clientService: ClientService) {
 
-      // add a day
-      this.todayDate.setDate(this.todayDate.getDate() + 1);
+
+      var n = this.todayDate.getHours();
+      if(n >=18){
+        // Disable actual day
+        this.todayDate.setDate(this.todayDate.getDate() + 1);
+      }else{
+        // From this day
+        this.todayDate.setDate(this.todayDate.getDate());
+      }
+
+
       this.client  = new ClientModel();
       this.betValues.push(
         {
