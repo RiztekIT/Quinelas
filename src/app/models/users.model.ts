@@ -11,6 +11,7 @@ export class UserModel{
     ID_User: number;
     Name: string;
     LastName: string;
+    FullName: number;
     Address: string;
     AddressZipCode: string;
     AddressState: string;
@@ -21,6 +22,8 @@ export class UserModel{
     Email: string;
     Password: string;
     Token: string;
+    AmountBets: number;
+    SalesGoal: number;
     Created: string;
     Updated: string;
 }

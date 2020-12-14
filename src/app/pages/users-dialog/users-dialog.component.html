@@ -44,18 +44,18 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <mat-form-field class="example-full-width">
                         <input matInput name="Address" placeholder="Dirección" type="text" [(ngModel)]="user.Address">
                     </mat-form-field>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
                         <input matInput name="AddressState" placeholder="Estado" type="text" [(ngModel)]="user.AddressState">
                     </mat-form-field>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
                         <input matInput name="AddressCity" placeholder="Ciudad" type="text" [(ngModel)]="user.AddressCity">
@@ -64,6 +64,11 @@
                 <div class="col-md-4">
                     <mat-form-field class="example-full-width">
                         <input matInput name="AddressZipCode" placeholder="Codigo postal" type="text" [(ngModel)]="user.AddressZipCode">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="SalesGoal" placeholder="Objetivo de ventas" type="number" [(ngModel)]="user.SalesGoal">
                     </mat-form-field>
                 </div>
             </div>

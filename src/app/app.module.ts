@@ -53,7 +53,7 @@ import { InfoComponent } from './pages/info/info.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { QrscannerComponent } from './pages/qrscanner/qrscanner.component';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+//import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
 
@@ -106,7 +106,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    ZXingScannerModule
+    //ZXingScannerModule
   ],
   declarations: [
     AppComponent,

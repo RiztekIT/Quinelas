@@ -76,6 +76,7 @@ export class BetsDialogComponent implements OnInit {
 
       Swal.fire({
         allowOutsideClick: false,
+        icon: 'info',
         title: 'Eliminar apuesta',
         showDenyButton: true,
         showCancelButton: false,

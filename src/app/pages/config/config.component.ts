@@ -12,8 +12,8 @@ import { BetsService } from 'app/services/bets.service';
 import { BetModel } from 'app/models/bets.model';
 import { ConfigModel } from 'app/models/config.model';
 import { BetsWinnerModel } from 'app/models/betsWinners.model';
-import { EventEmitter } from 'events';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as Chartist from 'chartist';
+import { Chart } from 'chart.js';
 
 
 @Component({
@@ -58,8 +58,8 @@ export class ConfigComponent implements OnInit {
     this.getDashboard();
     this.getConfig();
     this.getAdminBets();
-
     this.getAdminBetsWinners();
+    this.getAdminCharts();
   }
 
   getDashboard(){
@@ -89,11 +89,9 @@ export class ConfigComponent implements OnInit {
     });
     Swal.showLoading();
     this.adminService.getConfig().subscribe( resp =>{
-      console.log(resp);
       if(resp.statusID == 200){
         Swal.close();
         this.config = resp.data[0];
-        console.log(resp.data);
       }else{
           Swal.fire({
             text: resp.statusDescription,
@@ -115,13 +113,11 @@ export class ConfigComponent implements OnInit {
     });
     Swal.showLoading();
     this.adminService.getAdminBets(filterDate).subscribe( resp =>{
-      console.log(resp);
       if(resp.statusID == 200){
         Swal.close();
         this.dataSource = new MatTableDataSource<BetModel>(resp.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(resp.data);
       }else{
           Swal.fire({
             text: resp.statusDescription,
@@ -137,8 +133,6 @@ export class ConfigComponent implements OnInit {
 
   onSubmit(profileForm:NgForm){
     if (profileForm.invalid) { return; }
-    console.log(profileForm);
-
 
     Swal.fire({
       allowOutsideClick: false,
@@ -170,7 +164,6 @@ export class ConfigComponent implements OnInit {
 
   onSubmitBetWinerForm(betWinerForm:NgForm){
     if (betWinerForm.invalid) { return; }
-    console.log(betWinerForm);
 
     var BetWinerDateFormated = this.betsWinner.Date.toString().split(' ');
     var dateString = BetWinerDateFormated[2]+"/"+this.monthToNumber(BetWinerDateFormated[1])+"/"+BetWinerDateFormated[3];
@@ -204,7 +197,6 @@ export class ConfigComponent implements OnInit {
     });
     Swal.showLoading();
     this.adminService.postBetsWinner(this.betsWinner).subscribe( resp =>{
-      console.log(resp);
       if(resp.statusID == 200){ Swal.fire({
         allowOutsideClick: false,
         text: resp.statusDescription,
@@ -240,13 +232,11 @@ export class ConfigComponent implements OnInit {
     });
     Swal.showLoading();
     this.adminService.getAdminBetsWinners(filterDate).subscribe( resp =>{
-      console.log(resp);
       if(resp.statusID == 200){
         Swal.close();
         this.dataSource2 = new MatTableDataSource<BetModel>(resp.data);
         this.dataSource2.paginator = this.paginator2;
         this.dataSource2.sort = this.sort2;
-        console.log(resp.data);
       }else{
           Swal.fire({
             text: resp.statusDescription,
@@ -264,7 +254,6 @@ export class ConfigComponent implements OnInit {
       betsWinnersDateFilterFormated = betsWinnersDateFilterFormated[2]+"/"+this.monthToNumber(betsWinnersDateFilterFormated[1])+"/"+betsWinnersDateFilterFormated[3];
     }
     this.getAdminBetsWinners(betsWinnersDateFilterFormated);
-    console.log(betsWinnersDateFilterFormated);
   }
 
   betsDateFilterTable(){
@@ -274,7 +263,6 @@ export class ConfigComponent implements OnInit {
       betsDateFilterFormated = betsDateFilterFormated[2]+"/"+this.monthToNumber(betsDateFilterFormated[1])+"/"+betsDateFilterFormated[3];
     }
     this.getAdminBets(betsDateFilterFormated);
-    console.log(betsDateFilterFormated);
   }
 
 
@@ -325,6 +313,165 @@ export class ConfigComponent implements OnInit {
 
 
 
+  startAnimationForLineChart(chart){
+    let seq: any, delays: any, durations: any;
+    seq = 0;
+    delays = 80;
+    durations = 500;
 
+    chart.on('draw', function(data) {
+      if(data.type === 'line' || data.type === 'area') {
+        data.element.animate({
+          d: {
+            begin: 600,
+            dur: 700,
+            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+            to: data.path.clone().stringify(),
+            easing: Chartist.Svg.Easing.easeOutQuint
+          }
+        });
+      } else if(data.type === 'point') {
+            seq++;
+            data.element.animate({
+              opacity: {
+                begin: seq * delays,
+                dur: durations,
+                from: 0,
+                to: 1,
+                easing: 'ease'
+              }
+            });
+        }
+    });
+
+    seq = 0;
+};
+
+getAdminCharts(){
+
+
+
+  Swal.fire({
+    allowOutsideClick: false,
+    text: 'Espere por favor...',
+    icon: 'info'
+  });
+  Swal.showLoading();
+  this.adminService.getAdminSalesGoals().subscribe( resp =>{
+    console.log(resp);
+    if(resp.statusID == 200){
+      Swal.close();
+      var employees = [];
+      var sales = [];
+      for(var i in resp.data) {
+        employees.push(resp.data[i].FullName);
+        sales.push(resp.data[i].AmountBets);
+      }
+
+      var chartdata = {
+        labels: employees,
+        datasets : [
+          {
+
+            label: 'Vendido este mes',
+            backgroundColor: ["#e57372", "#80c784", "#ba67c8", "#63b5f6", "#dc6c5f", "#055aab", "#ffc107", "#cddc39", "#9e9e9e", "#2d3e4e"],
+            data: sales
+          },
+
+        ]
+      };
+      var maxSales = Math.max.apply(Math, sales);
+      var employeesSalesCurrentYear = new Chart("myChart", {
+      type: 'bar',
+      data: chartdata,
+      options: {
+      maintainAspectRatio: false,
+      layout: {
+      padding: {
+      left: 10,
+      right: 25,
+      top: 25,
+      bottom: 0
+      }
+      },
+      scales: {
+      xAxes: [{
+      time: {
+        unit: 'person'
+      },
+      gridLines: {
+        display: false,
+        drawBorder: false
+      },
+      ticks: {
+        maxTicksLimit: 30
+      },
+      maxBarThickness: 50,
+      }],
+      yAxes: [{
+      ticks: {
+        min: 0,
+        max: maxSales,
+        maxTicksLimit: 5,
+        padding: 10,
+        // Include a dollar sign in the ticks
+        callback: function(value, index, values) {
+          return  value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+      },
+      gridLines: {
+        color: "rgb(234, 236, 244)",
+        zeroLineColor: "rgb(234, 236, 244)",
+        drawBorder: false,
+        borderDash: [2],
+        zeroLineBorderDash: [2]
+      }
+      }],
+      },
+      legend: {
+      display: false
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, chart, data) {
+              var values = chart.datasets[tooltipItem.datasetIndex].data;
+                            var bigTotal = 0;
+                            for (var i in values) {
+                              bigTotal += values[i];
+                          }
+
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+
+              function findObjectByKey(array, key, value) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i][key] === value) {
+                        return array[i];
+                    }
+                }
+                return null;
+              }
+              var obj = findObjectByKey(resp.data, "FullName", tooltipItem.xLabel);
+              console.log(obj.SalesGoal);
+              var percentage = parseFloat((tooltipItem.yLabel/obj.SalesGoal*100).toFixed(1));
+              return "$"+tooltipItem.yLabel.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
+                        + 
+                        ' de su objetivo de: $' 
+                        + obj.SalesGoal.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                        + ' (' + percentage +'%)';
+          }
+        }
+      },
+      }
+  });
+
+  }else{
+        Swal.fire({
+          text: resp.statusDescription,
+          icon: 'error'
+        });
+    }
+  });
+
+}
 
 }

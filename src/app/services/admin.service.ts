@@ -7,6 +7,7 @@ import { InfoResponse } from 'app/models/info.model';
 import { BetsResponse } from 'app/models/bets.model';
 import { ConfigModel, ConfigResponse } from 'app/models/config.model';
 import { BetsWinnerModel, BetsWinnerResponse } from 'app/models/betsWinners.model';
+import { UserResponse } from 'app/models/users.model';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,21 @@ export class AdminService {
       }
     )
   } 
+
+
+  getAdminSalesGoals(){
+    let userToken = this.userService.getToken();
+    return this.http.get<UserResponse>(
+      `${this.url}/GET_adminSalesGoals.php?Token=`+userToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
+  } 
+
+
 
 
 
