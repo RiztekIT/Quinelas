@@ -451,7 +451,7 @@ getAdminCharts(){
                 return null;
               }
               var obj = findObjectByKey(resp.data, "FullName", tooltipItem.xLabel);
-              console.log(obj.SalesGoal);
+              //console.log(obj.SalesGoal);
               var percentage = parseFloat((tooltipItem.yLabel/obj.SalesGoal*100).toFixed(1));
               return "$"+tooltipItem.yLabel.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
                         + 

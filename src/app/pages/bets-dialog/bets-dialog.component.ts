@@ -73,7 +73,6 @@ export class BetsDialogComponent implements OnInit {
     }
   
     removevalue(i){
-
       Swal.fire({
         allowOutsideClick: false,
         icon: 'info',
@@ -89,8 +88,6 @@ export class BetsDialogComponent implements OnInit {
         }
         Swal.close();
       })
-
-
     }
 
 
@@ -105,9 +102,6 @@ export class BetsDialogComponent implements OnInit {
           Bet: "",
           Date: newBetDate
         });
-
-    console.log(this.betValues);
-
     }
 
 
@@ -127,7 +121,6 @@ export class BetsDialogComponent implements OnInit {
       if(resp.statusID == 200){
         Swal.close();
         this.clients = resp.data;
-        console.log(this.clients);
       }else{
           Swal.fire({
             text: resp.statusDescription,
@@ -154,6 +147,7 @@ export class BetsDialogComponent implements OnInit {
 
   confirmBets(){
     var table = "";
+    var total = 0;
     for (var x of this.betValues) {
       var res = x.Date.toString().split(' ');
       var dateString = res[2]+"/"+this.monthToNumber(res[1])+"/"+res[3];
@@ -162,7 +156,7 @@ export class BetsDialogComponent implements OnInit {
                       <td>$${x.Bet}</td>
                       <td>${dateString}</td>
                   </tr>`;
-                  
+      total = total + x.Bet;       
       }
 
     table = `<table border=1 width="100%"> 
@@ -172,7 +166,12 @@ export class BetsDialogComponent implements OnInit {
         <th>Fecha</th>
       </tr>
        ${table}
-    </table>`;
+      <tr style="font-weight: bold;">
+        <td></td>
+        <td>TOTAL:</td>
+        <td>$${total}</td>
+      </tr>
+      </table>`;
 
 
     Swal.fire({
@@ -209,11 +208,9 @@ export class BetsDialogComponent implements OnInit {
       });
     Swal.showLoading();
     this.betService.postValidateBetsAmount(this.bet).subscribe( resp =>{
-      console.log(resp);
       if(resp.statusID == 200){
           Swal.close();
           if(this.bet.ID_Client == -1){
-            console.log(this.client);
             this.postClient();
           }else{
             this.postBet();
@@ -235,9 +232,6 @@ export class BetsDialogComponent implements OnInit {
  
 
 
-
-
-  
   postBet(){
     var localBets = "";
     for (var x of this.betValues) {

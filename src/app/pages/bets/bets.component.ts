@@ -54,7 +54,6 @@ export class BetsComponent implements AfterViewInit {
         this.dataSource = new MatTableDataSource<BetModel>(resp.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(resp.data);
       }else{
           Swal.fire({
             text: resp.statusDescription,
@@ -106,11 +105,9 @@ export class BetsComponent implements AfterViewInit {
 
 
 
-  viewBetTicket(element:BetModel){
+  /*viewBetTicket(element:BetModel){
     return;
     console.log(element.ID_Bet);
-
-
     const dialogRef = this.dialog.open(BetsDialogTicketComponent, {
       width: "750px",
       height: "430px",
@@ -120,9 +117,7 @@ export class BetsComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
     });
-
-
-  }
+  }*/
 
 
 

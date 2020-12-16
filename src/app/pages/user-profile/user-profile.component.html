@@ -4,11 +4,11 @@
 
             <div class="col-md-4">
                 <div class="card card-profile">
-                    <div class="card-avatar">
+                    <!--<div class="card-avatar">
                         <a href="javascript:void(0)">
                             <img class="img" src="./assets/img/faces/marc.jpg" />
                         </a>
-                    </div>
+                    </div>-->
                     <div class="card-body">
                         <h6 class="card-category text-gray">{{user.Type}}</h6>
                         <h4 class="card-title">{{user.Name}} {{user.LastName}}</h4>
@@ -18,11 +18,19 @@
                         <!--<a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>-->
                     </div>
                     <div class="row">
+                        <div style="width: 100%; padding-bottom: 50px;">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <!--<div class="row">
+
+
+
                         <div class="col-md-4">{{user.AmountBets | currency:'MXN'}} </div>
                         <div class="col-md-4">de</div>
                         <div class="col-md-4">{{user.SalesGoal | currency:'MXN'}} </div>
                     </div>
-                    <mat-progress-bar color="warn" mode="determinate" value="{{user.SalesAvg}}"></mat-progress-bar>
+                    <mat-progress-bar color="warn" mode="determinate" value="{{user.SalesAvg}}"></mat-progress-bar>-->
 
 
                 </div>
