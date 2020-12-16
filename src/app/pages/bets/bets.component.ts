@@ -10,6 +10,9 @@ import { BetModel } from 'app/models/bets.model';
 import { BetsDialogComponent } from '../bets-dialog/bets-dialog.component';
 import { BetsDialogTicketComponent } from '../bets-dialog-ticket/bets-dialog-ticket.component';
 import { QrscannerComponent } from '../qrscanner/qrscanner.component';
+import { UserModel } from 'app/models/users.model';
+import { Chart } from 'chart.js';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-bets',
@@ -18,12 +21,14 @@ import { QrscannerComponent } from '../qrscanner/qrscanner.component';
 })
 export class BetsComponent implements AfterViewInit {
 
+  user:UserModel;
   bet = new BetModel();
 
   displayedColumns: string[] = ['ID_Bet', 'ID_Group',  'ClientFullName', 'Number', 'Bet', 'Date', 'Created', 'Actions'];
   dataSource:any;
 
-  constructor(private betsService: BetsService,
+  constructor(private UserService: UserService,
+    private betsService: BetsService,
     public dialog: MatDialog) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -31,6 +36,7 @@ export class BetsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.getBets();
+    this.getUserChart();
   }
 
 
@@ -81,6 +87,7 @@ export class BetsComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('---Printing bet respose---');
       this.getBets();
+      this.getUserChart();
     });
   }
 
@@ -105,6 +112,73 @@ export class BetsComponent implements AfterViewInit {
 
 
 
+
+  getUserChart(){
+    Swal.fire({
+      allowOutsideClick: false,
+      text: 'Espere por favor...',
+      icon: 'info'
+    });
+    Swal.showLoading();
+    this.UserService.getUserByToken().subscribe( resp =>{
+      if(resp.statusID == 200){
+        Swal.close();
+        this.user = resp.data[0];
+          if(this.user.AmountBets >= this.user.SalesGoal){
+            var salesPendding = 0;
+          }else{
+            var salesPendding = this.user.SalesGoal - this.user.AmountBets;
+          }
+          Math.abs(salesPendding);
+            var myDoughnutChart = new Chart("myChart", {
+              type: 'doughnut',
+              options: {
+                tooltips: {
+                  callbacks: {
+                    label: function(tooltipItem, data) {
+                      var dataset = data.datasets[tooltipItem.datasetIndex];
+                      var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+                      var total = meta.total;
+                      var currentValue = dataset.data[tooltipItem.index];
+                      var percentage = parseFloat((currentValue/total*100).toFixed(1));
+                      return percentage + '%';
+                    },
+                    title: function(tooltipItem, data) {
+                      return data.labels[tooltipItem[0].index];
+                    }
+                  }
+                }
+               
+              },
+              data: {
+                datasets : [
+                  {
+                    backgroundColor: [ "#80c784", "#eee"],
+                    data: [this.user.AmountBets,  salesPendding.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2}) ]
+                  }],
+            
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    `Ventas: $${this.user.AmountBets}`,
+                    `Restante: $${salesPendding}`,
+                ]
+              }
+              
+            });
+  
+  
+      }else{
+          Swal.fire({
+            text: resp.statusDescription,
+            icon: 'error'
+          });
+      }
+    });
+
+
+
+
+
   /*viewBetTicket(element:BetModel){
     return;
     console.log(element.ID_Bet);
@@ -121,4 +195,5 @@ export class BetsComponent implements AfterViewInit {
 
 
 
+}
 }
