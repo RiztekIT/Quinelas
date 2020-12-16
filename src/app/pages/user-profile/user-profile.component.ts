@@ -52,7 +52,11 @@ getUser(){
       this.user = resp.data[0];
       console.log(resp.data)
 
+      if(this.user.AmountBets >= this.user.SalesGoal){
+        var salesPendding = 0;
+      }else{
         var salesPendding = this.user.SalesGoal - this.user.AmountBets;
+      }
         Math.abs(salesPendding);
           var myDoughnutChart = new Chart("myChart", {
             type: 'doughnut',
