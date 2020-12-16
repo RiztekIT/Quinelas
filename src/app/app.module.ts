@@ -28,6 +28,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import {
@@ -35,11 +36,7 @@ import {
 } from '@agm/core';
 import { TemplateComponent } from './pages/template/template.component';
 import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { MapsComponent } from './pages/maps/maps.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
-import { UpgradeComponent } from './pages/upgrade/upgrade.component';
 import { CommonModule } from '@angular/common';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { ClientsDialogComponent } from './pages/clients-dialog/clients-dialog.component';
@@ -98,6 +95,7 @@ import { QrscannerComponent } from './pages/qrscanner/qrscanner.component';
     MatNativeDateModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
 
     BrowserAnimationsModule,
     HttpClientModule,
@@ -112,11 +110,7 @@ import { QrscannerComponent } from './pages/qrscanner/qrscanner.component';
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
     UserProfileComponent,
-    MapsComponent,
-    NotificationsComponent,
-    UpgradeComponent,
     LoginComponent,
     TemplateComponent,
     ClientsComponent,

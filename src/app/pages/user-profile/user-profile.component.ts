@@ -10,6 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { BetModel } from 'app/models/bets.model';
 import { BetsService } from 'app/services/bets.service';
 import { BetsWinnerModel } from 'app/models/betsWinners.model';
+import { Chart } from 'chart.js';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -50,6 +51,46 @@ getUser(){
       Swal.close();
       this.user = resp.data[0];
       console.log(resp.data)
+
+        var salesPendding = this.user.SalesGoal - this.user.AmountBets;
+        Math.abs(salesPendding);
+          var myDoughnutChart = new Chart("myChart", {
+            type: 'doughnut',
+            options: {
+              tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+                    var total = meta.total;
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var percentage = parseFloat((currentValue/total*100).toFixed(1));
+                    return percentage + '%';
+                  },
+                  title: function(tooltipItem, data) {
+                    return data.labels[tooltipItem[0].index];
+                  }
+                }
+              }
+             
+            },
+            data: {
+              datasets : [
+                {
+                  backgroundColor: [ "#80c784", "#eee"],
+                  data: [this.user.AmountBets,  salesPendding.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2}) ]
+                }],
+          
+              // These labels appear in the legend and in the tooltips when hovering different arcs
+              labels: [
+                  `Ventas: $${this.user.AmountBets}`,
+                  `Restante: $${salesPendding}`,
+              ]
+            }
+            
+          });
+
+
     }else{
         Swal.fire({
           text: resp.statusDescription,
@@ -57,6 +98,15 @@ getUser(){
         });
     }
   });
+
+
+
+
+
+
+
+
+
 }
 
 
