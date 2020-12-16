@@ -24,6 +24,7 @@ export class UserModel{
     Token: string;
     AmountBets: number;
     SalesGoal: number;
+    SalesAvg: number;
     Created: string;
     Updated: string;
 }

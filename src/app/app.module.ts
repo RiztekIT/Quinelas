@@ -27,6 +27,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import {
@@ -96,6 +97,7 @@ import { QrscannerComponent } from './pages/qrscanner/qrscanner.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatProgressBarModule,
 
     BrowserAnimationsModule,
     HttpClientModule,

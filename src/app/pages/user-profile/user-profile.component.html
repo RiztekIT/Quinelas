@@ -17,6 +17,14 @@
                         </p>
                         <!--<a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>-->
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">{{user.AmountBets | currency:'MXN'}} </div>
+                        <div class="col-md-4">de</div>
+                        <div class="col-md-4">{{user.SalesGoal | currency:'MXN'}} </div>
+                    </div>
+                    <mat-progress-bar color="warn" mode="determinate" value="{{user.SalesAvg}}"></mat-progress-bar>
+
+
                 </div>
             </div>
 

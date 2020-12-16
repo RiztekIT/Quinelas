@@ -49,6 +49,7 @@ getUser(){
     if(resp.statusID == 200){
       Swal.close();
       this.user = resp.data[0];
+      console.log(resp.data)
     }else{
         Swal.fire({
           text: resp.statusDescription,
