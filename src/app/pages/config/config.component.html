@@ -310,7 +310,7 @@
                                 <div class="example-container">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Fecha del sorteo</mat-label>
-                                        <input matInput #refe (dateChange)="betsDateFilterTable(refe.value)" name="betsDateFilter" [matDatepicker]="betsDatePickerFilter" [(ngModel)]="betsDateFilter">
+                                        <input matInput #refe (dateChange)="betsDateFilterTable()" name="betsDateFilter" [matDatepicker]="betsDatePickerFilter" [(ngModel)]="betsDateFilter">
                                         <mat-datepicker-toggle matSuffix [for]="betsDatePickerFilter"></mat-datepicker-toggle>
                                         <mat-datepicker #betsDatePickerFilter></mat-datepicker>
                                     </mat-form-field>

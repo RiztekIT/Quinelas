@@ -11,8 +11,10 @@ export class QrscannerComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<QrscannerComponent>) { }
 
   qrleido
+  
 
   ngOnInit(): void {
+    
   }
 
   escaner(evento){
