@@ -44,7 +44,7 @@ export class BetsDialogComponent implements OnInit {
 
 
       var n = this.todayDate.getHours();
-      if(n >=18){
+      if(n >=25){
         // Disable actual day
         this.todayDate.setDate(this.todayDate.getDate() + 1);
       }else{
