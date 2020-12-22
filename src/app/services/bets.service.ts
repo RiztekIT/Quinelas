@@ -86,6 +86,27 @@ export class BetsService {
         }
       }
     )
+  }
+  
+  
+  postpayBetTicket(qr:string ){
+
+    //Add the token to the client model to set the parent user.
+    let userToken = this.userService.getToken();
+    let betsGroup = qr;
+    const betWithUserToken = {
+      betsGroup,
+    userToken
+    }
+
+    return this.http.post<BetsResponse>(
+      `${this.url}/POST_payBetTickets.php?betsGroup=`+qr, betWithUserToken,
+      {
+        headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }
+    )
   } 
 
 

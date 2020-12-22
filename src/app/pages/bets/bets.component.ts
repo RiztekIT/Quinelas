@@ -105,10 +105,14 @@ export class BetsComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('Escaner', result);
       this.getBets();
+      if (result){
+        this.getWinner(result)
+      }
     });
 
 
   }
+
 
 
 
@@ -194,6 +198,20 @@ export class BetsComponent implements AfterViewInit {
   }*/
 
 
+  
+
+
 
 }
+
+getWinner(idgroup){
+  
+this.betsService.postpayBetTicket(idgroup).subscribe(data=>{
+  console.log(data);
+
+})
+
+    
+}
+
 }
