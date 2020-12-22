@@ -30,6 +30,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatSliderModule} from '@angular/material/slider';
 
 import {
   AgmCoreModule
@@ -52,6 +53,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { QrscannerComponent } from './pages/qrscanner/qrscanner.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { HourPipe } from './pipes/hour.pipe';
 
 @NgModule({
 
@@ -96,6 +98,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     MatCheckboxModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatSliderModule,
 
     BrowserAnimationsModule,
     HttpClientModule,
@@ -123,7 +126,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     UsersDialogComponent,
     ConfigComponent,
     InfoComponent,
-    QrscannerComponent
+    QrscannerComponent,
+    HourPipe
     
 
   ],

@@ -10,6 +10,7 @@ export interface ConfigResponse{
 export class ConfigModel{
     ID_Config: number;
     MaxAmount: number;
+    LastHourForBets: number;
     Created: string;
     Updated: string;
 }

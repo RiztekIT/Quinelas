@@ -9,6 +9,8 @@ import { BetModel } from 'app/models/bets.model';
 import { ClientService } from 'app/services/client.service';
 import { ClientModel, ClientResponse } from 'app/models/clients.model';
 import { isEmptyObject } from 'jquery';
+import { AdminService } from 'app/services/admin.service';
+import { ConfigModel } from 'app/models/config.model';
 
 
 
@@ -22,6 +24,7 @@ export class BetsDialogComponent implements OnInit {
   client = new ClientModel();
   betValues = [];
   bet: BetModel;
+  config = new ConfigModel ();
   clients:any;
   todayDate = new Date();
 
@@ -38,21 +41,12 @@ export class BetsDialogComponent implements OnInit {
 
   
   constructor(
+    private adminService:AdminService,
     public dialogRef: MatDialogRef<BetsDialogComponent>,
     private betService: BetsService,
     private clientService: ClientService) {
 
-
-      var n = this.todayDate.getHours();
-      if(n >=25){
-        // Disable actual day
-        this.todayDate.setDate(this.todayDate.getDate() + 1);
-      }else{
-        // From this day
-        this.todayDate.setDate(this.todayDate.getDate());
-      }
-
-
+      this.setLastHourForBets();
       this.client  = new ClientModel();
       this.betValues.push(
         {
@@ -63,6 +57,24 @@ export class BetsDialogComponent implements OnInit {
 
     }
 
+
+    
+    setLastHourForBets(){
+      this.adminService.getConfig().subscribe( resp =>{
+        if(resp.statusID == 200){
+          this.config = resp.data[0];
+
+          var n = this.todayDate.getHours();
+          if(n >= this.config.LastHourForBets){
+            // Disable actual day
+            this.todayDate.setDate(this.todayDate.getDate() + 1);
+          }else{
+            // From this day
+            this.todayDate.setDate(this.todayDate.getDate());
+          }
+        }
+      });
+    }
 
     setAllBetsDates(i){
       console.log(this.betValues);
