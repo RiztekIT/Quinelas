@@ -103,22 +103,28 @@
                 <div class="card">
                     <div class="card-header card-header-warning">
                         <h4 class="card-title">Apuestas</h4>
-                        <p class="card-category">Maximo por numéro</p>
+                        <p class="card-category">Configuración</p>
                     </div>
                     <div class="card-body">
                         <form (ngSubmit)="onSubmit(configForm)" #configForm="ngForm">
 
-                            <div class="col-md-12">
-                                <div class="example-container">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>Maximo: {{config.MaxAmount | currency:'MXN'}}</mat-label>
-                                        <input matInput name="MaxAmount" type="number" class="example-right-align" [(ngModel)]="config.MaxAmount" pattern="^[1-9][0-9]*$" required>
-                                        <span matPrefix>$&nbsp;</span>
-                                        <span matSuffix>.00</span>
-                                    </mat-form-field>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="example-container">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Maximo: {{config.MaxAmount | currency:'MXN'}}</mat-label>
+                                            <input matInput name="MaxAmount" type="number" class="example-right-align" [(ngModel)]="config.MaxAmount" pattern="^[1-9][0-9]*$" required>
+                                            <span matPrefix>$&nbsp;</span>
+                                            <span matSuffix>.00</span>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <mat-label>Ultima hora: {{config.LastHourForBets | hour}}</mat-label>
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" name="LastHourForBets" tickInterval="1" min="01" max="24" style="top: -9px;" [(ngModel)]="config.LastHourForBets"></mat-slider>
                                 </div>
                             </div>
-
                             <button mat-raised-button type="submit" class="btn btn-warning pull-right">Guardar</button>
                             <div class="clearfix"></div>
                         </form>
