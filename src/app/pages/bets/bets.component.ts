@@ -86,6 +86,9 @@ export class BetsComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('---Printing bet respose---');
+      console.log(result);
+      window.open('https://riztek.com.mx/php/Quinelas/bet_tickets.php?betsGroup='+result.IDGroup)
+
       this.getBets();
       this.getUserChart();
     });

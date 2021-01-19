@@ -260,6 +260,7 @@ export class BetsDialogComponent implements OnInit {
     });
     Swal.showLoading();
     this.betService.postBet(this.bet).subscribe( resp =>{
+      console.log(resp);
       if(resp.statusID == 200){
         Swal.fire({
           allowOutsideClick: false,
@@ -268,7 +269,7 @@ export class BetsDialogComponent implements OnInit {
           confirmButtonText: `Ok`
         }).then((result) => {
           Swal.close();
-          this.dialogRef.close();
+          this.dialogRef.close(resp);
         })
       }else{
         Swal.fire({
