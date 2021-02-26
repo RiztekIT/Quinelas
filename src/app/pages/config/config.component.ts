@@ -38,7 +38,7 @@ export class ConfigComponent implements OnInit {
   betsDateFilter:any;
 
   users:any;
-  ID_UserChartSelected: any;
+  ID_UserChartSelected = "";
   chartDateFilter:any = new Date();
 
 
