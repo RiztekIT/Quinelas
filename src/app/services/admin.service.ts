@@ -76,10 +76,15 @@ export class AdminService {
   } 
 
 
-  getAdminSalesGoals(){
+  getAdminSalesGoals(ID_User, Date){
     let userToken = this.userService.getToken();
-    return this.http.get<UserResponse>(
-      `${this.url}/GET_adminSalesGoals.php?Token=`+userToken,
+    const dataArray = {
+      ID_User,
+      Date,
+      userToken
+    }
+    return this.http.post<UserResponse>(
+      `${this.url}/GET_adminSalesGoals.php?Token=`, dataArray,
       {
         headers : {
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
