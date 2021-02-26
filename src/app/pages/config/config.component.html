@@ -77,7 +77,7 @@
                 <div class="card">
                     <div class="card-header card-header-success">
                         <h4 class="card-title">Apuestas</h4>
-                        <p class="card-category">Ventas del mes actual por usuario</p>
+                        <p class="card-category">Ventas por dia y por usuario</p>
                     </div>
                     <div class="card-body">
 
@@ -103,7 +103,7 @@
 
                                 <div class="example-container">
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Fecha de ventas</mat-label>
+                                        <mat-label>Fecha de venta</mat-label>
                                         <input matInput #refe (dateChange)="getAdminCharts()" name="chartDateFilter" [matDatepicker]="usersChartDateFilter" [(ngModel)]="chartDateFilter">
                                         <mat-datepicker-toggle matSuffix [for]="usersChartDateFilter"></mat-datepicker-toggle>
                                         <mat-datepicker #usersChartDateFilter></mat-datepicker>
