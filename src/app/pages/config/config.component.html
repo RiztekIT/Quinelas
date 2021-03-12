@@ -77,11 +77,45 @@
                 <div class="card">
                     <div class="card-header card-header-success">
                         <h4 class="card-title">Apuestas</h4>
-                        <p class="card-category">Ventas del mes actual por usuario</p>
+                        <p class="card-category">Ventas por dia y por usuario</p>
                     </div>
-
                     <div class="card-body">
-                        <div style="width: 100%; height: 250px;">
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Usuario</mat-label>
+                                        <mat-select name="ID_UserChartSelected" [(ngModel)]="ID_UserChartSelected" (selectionChange)='getAdminCharts()'>
+                                            <mat-option value="" selected>
+                                                Todos
+                                            </mat-option>
+                                            <mat-option *ngFor="let user of users; let i = index" [value]="user.ID_User">
+                                                {{user.Name}} {{user.LastName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Fecha de venta</mat-label>
+                                        <input matInput #refe (dateChange)="getAdminCharts()" name="chartDateFilter" [matDatepicker]="usersChartDateFilter" [(ngModel)]="chartDateFilter">
+                                        <mat-datepicker-toggle matSuffix [for]="usersChartDateFilter"></mat-datepicker-toggle>
+                                        <mat-datepicker #usersChartDateFilter></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="myChartContainer" style="width: 100%; height: 250px;">
                             <canvas id="myChart"></canvas>
                         </div>
                     </div>

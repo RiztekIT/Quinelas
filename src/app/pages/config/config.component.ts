@@ -9,6 +9,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { BetsService } from 'app/services/bets.service';
+import { UserService } from 'app/services/user.service';
 import { BetModel } from 'app/models/bets.model';
 import { ConfigModel } from 'app/models/config.model';
 import { BetsWinnerModel } from 'app/models/betsWinners.model';
@@ -36,7 +37,13 @@ export class ConfigComponent implements OnInit {
   betsWinnersDateFilter:any;
   betsDateFilter:any;
 
+  users:any;
+  ID_UserChartSelected = "";
+  chartDateFilter:any = new Date();
+
+
   constructor(
+    private userService: UserService,
     private adminService:AdminService,
     private betsService: BetsService,
     public dialog: MatDialog) { }
@@ -57,6 +64,7 @@ export class ConfigComponent implements OnInit {
     this.betsWinner  = new BetsWinnerModel();
     this.getDashboard();
     this.getConfig();
+    this.getUsers();
     this.getAdminBets();
     this.getAdminBetsWinners();
     this.getAdminCharts();
@@ -84,6 +92,28 @@ export class ConfigComponent implements OnInit {
 
     return hhPart + ":" + mmPart;
   }
+
+  getUsers(){
+    Swal.fire({
+      allowOutsideClick: false,
+      text: 'Espere por favor...',
+      icon: 'info'
+    });
+    Swal.showLoading();
+    this.userService.getUsers().subscribe( resp =>{
+      if(resp.statusID == 200){
+        Swal.close();
+        console.log(resp);
+        this.users = resp.data;
+      }else{
+          Swal.fire({
+            text: resp.statusDescription,
+            icon: 'error'
+          });
+      }
+    });
+  }
+
 
 
   getDashboard(){
@@ -372,8 +402,17 @@ export class ConfigComponent implements OnInit {
 };
 
 getAdminCharts(){
+  document.getElementById("myChartContainer").innerHTML = '&nbsp;';
+  document.getElementById("myChartContainer").innerHTML = '<canvas id="myChart"></canvas>';
+
+  
 
 
+    var res = this.chartDateFilter.toString().split(' ');
+    var dateString = res[2]+"/"+this.monthToNumber(res[1])+"/"+res[3];
+    console.log("the selected value is "+ dateString);
+    
+  
 
   Swal.fire({
     allowOutsideClick: false,
@@ -381,7 +420,7 @@ getAdminCharts(){
     icon: 'info'
   });
   Swal.showLoading();
-  this.adminService.getAdminSalesGoals().subscribe( resp =>{
+  this.adminService.getAdminSalesGoals(this.ID_UserChartSelected, dateString).subscribe( resp =>{
     console.log(resp);
     if(resp.statusID == 200){
       Swal.close();
